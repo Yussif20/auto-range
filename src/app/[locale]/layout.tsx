@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations } from "next-intl/server";
-import { cacheLife } from "next/cache";
+import { getMessages, getTranslations } from "next-intl/server";
 import { Alexandria, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
-import { ContactDock } from "@/components/layout/contact-dock";
-import { Footer } from "@/components/layout/footer";
-import { Header } from "@/components/layout/header";
-import { RequestDrawer } from "@/components/request-list/request-drawer";
 import { routing } from "@/i18n/routing";
-import { getSettings } from "@/lib/data/settings";
 import "../globals.css";
 
 const alexandria = Alexandria({
@@ -38,31 +32,25 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-async function currentYear() {
-  "use cache";
-  cacheLife("days");
-  return new Date().getFullYear();
-}
-
+// Root layout: document, fonts and translations. The public site and the
+// admin each add their own chrome in (site)/layout.tsx and admin/layout.tsx.
 export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {
   const locale = await rootLocale();
   if (!hasLocale(routing.locales, locale)) notFound();
-  const settings = await getSettings();
+  // Admin strings are only sent to admin pages (admin/layout.tsx adds them).
+  const publicMessages = Object.fromEntries(
+    Object.entries(await getMessages()).filter(([namespace]) => namespace !== "admin"),
+  );
 
   return (
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
+      data-scroll-behavior="smooth"
       className={`${alexandria.variable} ${plex.variable}`}
     >
       <body className="flex min-h-dvh flex-col">
-        <NextIntlClientProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer year={await currentYear()} settings={settings} />
-          <ContactDock settings={settings} />
-          <RequestDrawer />
-        </NextIntlClientProvider>
+        <NextIntlClientProvider messages={publicMessages}>{children}</NextIntlClientProvider>
       </body>
     </html>
   );
