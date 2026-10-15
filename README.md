@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Auto Range
 
-## Getting Started
+Website and admin for **Auto Range**, a Land Rover / Range Rover service center: services, a genuine-parts catalog with WhatsApp ordering, online booking with status tracking, and an admin dashboard. Arabic (RTL, default) and English.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Next.js 16 (App Router, Cache Components) · TypeScript · Tailwind CSS v4 · next-intl
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | What it does |
+|---|---|
+| `npm run dev` | Dev server on http://localhost:3000 (redirects to `/ar`) |
+| `npm run build` | Runs the i18n check, then a production build |
+| `npm run lint` | ESLint |
+| `npm run check:i18n` | Fails if `messages/ar.json` and `messages/en.json` have missing or empty keys |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+- `src/app/[locale]/`: pages; the root layout sets `lang`/`dir` from the locale
+- `src/i18n/`: routing, request config, locale-aware `Link`
+- `src/proxy.ts`: locale redirect (Next 16 "proxy", formerly middleware)
+- `src/components/`: `brand/` (logo), `layout/` (header, footer, contact dock)
+- `src/config/`: placeholder business details (moving to the DB Settings table)
+- `messages/`: translations
 
-To learn more about Next.js, take a look at the following resources:
+## Brand tokens
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Carbon `#0A0A0B` · surface `#131316` · signal red `#C8102E` (hover `#E0283F`, deep `#7A0A1C`) · text `#F4F4F5` · muted `#A1A1AA`. Defined in `src/app/globals.css` as Tailwind theme colors (`bg-brand`, `text-muted`, `border-line`, …).

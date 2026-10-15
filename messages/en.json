@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "Auto Range | Land Rover & Range Rover Specialists",
+    "description": "Auto Range is a Land Rover and Range Rover service center: scheduled maintenance, dealer-level diagnostics, air suspension and genuine parts, with fast booking and live job tracking."
+  },
+  "brand": {
+    "name": "Auto Range",
+    "tagline": "Land Rover & Range Rover specialists"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "parts": "Parts",
+    "book": "Book service",
+    "track": "Track booking",
+    "about": "About",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close menu",
+    "switchLocale": "العربية",
+    "switchLocaleLabel": "Switch to Arabic"
+  },
+  "actions": {
+    "book": "Book service",
+    "bookNow": "Book your visit",
+    "browseParts": "Browse parts",
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "chatWhatsapp": "Chat on WhatsApp"
+  },
+  "home": {
+    "eyebrow": "Land Rover specialist center",
+    "titleLine1": "Specialist care",
+    "titleLine2": "for every Range Rover",
+    "lead": "Precise servicing with dealer-grade diagnostics, genuine parts with warranty, and booking in a minute with step-by-step updates on your car.",
+    "highlights": {
+      "genuine": "Genuine parts, warrantied",
+      "diagnostics": "Dealer-grade diagnostics",
+      "tracking": "Track your car online"
+    }
+  },
+  "footer": {
+    "about": "A service center dedicated to every Land Rover and Range Rover model, with a trained team and genuine parts.",
+    "quickLinks": "Quick links",
+    "contact": "Contact us",
+    "hours": "Opening hours",
+    "hoursValue": "Sat – Thu: 9 AM – 7 PM",
+    "address": "Cairo, Egypt",
+    "rights": "© {year} Auto Range. All rights reserved.",
+    "disclaimer": "Land Rover and Range Rover are trademarks of their respective owners. Auto Range is an independent service center.",
+    "follow": "Follow us"
+  }
+}
