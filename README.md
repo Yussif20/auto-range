@@ -42,6 +42,21 @@ Security: the proxy only does a quick cookie check. Every admin page and server 
 - Open Graph images: one site-wide, and one per part (name, OEM number, price).
 - Set `NEXT_PUBLIC_SITE_URL` in production, or canonical and sitemap URLs fall back to localhost.
 
+## Deploy (Vercel + Neon)
+
+Live at https://auto-range.vercel.app. Pushes to `main` deploy to production, and other branches get preview URLs.
+
+- The database is Neon, provisioned through the Vercel Marketplace, which sets `DATABASE_URL` and `DATABASE_URL_UNPOOLED`.
+- The `vercel-build` script runs `prisma migrate deploy` before every build. The build reads Settings and the catalog, so the database must be seeded once before the first deploy.
+- Other env vars in Vercel: `SESSION_SECRET` (sensitive) and `NEXT_PUBLIC_SITE_URL`.
+- First-time production seed. The seed wipes data first, so it refuses non-local databases unless forced:
+  ```bash
+  vercel env pull .env.production.local --environment=production
+  # load DATABASE_URL and DATABASE_URL_UNPOOLED from that file into your shell, then:
+  SEED_FORCE=1 SEED_SAMPLE_DATA=0 SEED_ADMIN_EMAIL= SEED_ADMIN_PASSWORD= npx tsx prisma/seed/index.ts
+  ```
+- Admin accounts: `ADMIN_EMAIL=... ADMIN_PASSWORD=... npm run admin:create`, run with the production `DATABASE_URL` loaded. The same command resets a forgotten password.
+
 ## Scripts
 
 | Command | What it does |

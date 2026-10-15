@@ -3,8 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // Migrations need a direct (non-pooled) connection on Neon.
+  directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 // Bilingual text is stored as Ar/En column pairs; see src/lib/i18n-field.ts.
