@@ -64,7 +64,7 @@ export function TrackForm({ initialCode }: { initialCode: string }) {
           />
         </label>
         {error && (
-          <p role="alert" className="text-sm text-brand-hover">
+          <p role="alert" className="text-sm text-brand-text">
             {t(`errors.${error}`)}
           </p>
         )}
@@ -109,7 +109,7 @@ function BookingStatusCard({ booking }: { booking: TrackedBooking }) {
         <span
           className={clsx(
             "rounded-full px-3 py-1.5 text-sm font-semibold",
-            cancelled ? "bg-brand/15 text-brand-hover" : booking.status === "READY" ? "bg-success/15 text-success" : "bg-surface-2 text-ink",
+            cancelled ? "bg-brand/15 text-brand-text" : booking.status === "READY" ? "bg-success/15 text-success" : "bg-surface-2 text-ink",
           )}
         >
           {tStatus(booking.status)}
@@ -139,7 +139,7 @@ function BookingStatusCard({ booking }: { booking: TrackedBooking }) {
 
       {cancelled ? (
         <p className="mt-6 flex items-center gap-3 text-sm">
-          <XCircle className="size-5 text-brand-hover" />
+          <XCircle className="size-5 text-brand-text" />
           {t("cancelled")}
         </p>
       ) : (

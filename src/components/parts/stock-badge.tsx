@@ -6,7 +6,7 @@ const tone: Record<StockStatus, string> = {
   IN_STOCK: "bg-success/10 text-success",
   LOW_STOCK: "bg-warning/10 text-warning",
   ON_ORDER: "bg-surface-2 text-muted",
-  OUT_OF_STOCK: "bg-brand/10 text-brand-hover",
+  OUT_OF_STOCK: "bg-brand/10 text-brand-text",
 };
 
 export function StockBadge({ stock }: { stock: StockStatus }) {

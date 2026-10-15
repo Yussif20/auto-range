@@ -9,10 +9,11 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Link } from "@/i18n/navigation";
 import { getCategories, getModels, type PartFilters, searchParts } from "@/lib/data/catalog";
 import { localized } from "@/lib/i18n-field";
+import { localeAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("parts");
-  return { title: t("metaTitle"), description: t("lead") };
+  return { title: t("metaTitle"), description: t("lead"), alternates: localeAlternates("/parts", await getLocale()) };
 }
 
 export default async function PartsPage({ searchParams }: PageProps<"/[locale]/parts">) {

@@ -45,7 +45,8 @@ function parse(resource: ResourceKey, form: FormData) {
       }
       case "lines": {
         const lines = raw.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-        if (lines.some((l) => !/^https:\/\/\S+$/.test(l))) errors[field.name] = "invalid";
+        // Absolute https URLs or files served from /public (e.g. /images/parts/x.webp).
+        if (lines.some((l) => !/^(https:\/\/|\/)\S+$/.test(l))) errors[field.name] = "invalid";
         data[field.name] = lines;
         break;
       }

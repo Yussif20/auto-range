@@ -104,7 +104,7 @@ export function SettingsForm({ values }: { values: Values }) {
                     aria-invalid={invalid || undefined}
                     className={clsx(inputClass, invalid && "border-brand-hover")}
                   />
-                  {invalid && <span className="mt-1 block text-xs text-brand-hover">{t("invalid")}</span>}
+                  {invalid && <span className="mt-1 block text-xs text-brand-text">{t("invalid")}</span>}
                   {f.name === "slots" && <span className="mt-1 block text-xs text-muted">{t("slotsHint")}</span>}
                 </label>
               );
@@ -146,7 +146,7 @@ export function SettingsForm({ values }: { values: Values }) {
           </p>
         )}
         {state?.errors && (
-          <p role="alert" className="text-sm text-brand-hover">
+          <p role="alert" className="text-sm text-brand-text">
             {t("fixErrors")}
           </p>
         )}

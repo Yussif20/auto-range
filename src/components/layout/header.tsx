@@ -41,7 +41,7 @@ export function Header() {
         }`}
       >
         <div className="container-x flex items-center justify-between gap-3 sm:gap-6">
-          <Link href="/" aria-label={t("home")} onClick={() => setOpen(false)} className="shrink-0">
+          <Link href="/" onClick={() => setOpen(false)} className="shrink-0">
             <Logo />
           </Link>
 
@@ -66,7 +66,7 @@ export function Header() {
             <Link
               href={pathname}
               locale={otherLocale}
-              aria-label={t("switchLocaleLabel")}
+              lang={otherLocale}
               className="hidden rounded-md px-2 py-2 text-sm text-muted transition-colors hover:text-ink min-[400px]:inline-block"
             >
               {t("switchLocale")}
@@ -105,9 +105,9 @@ export function Header() {
                     href={item.href}
                     onClick={() => setOpen(false)}
                     aria-current={isActive(item.href) ? "page" : undefined}
-                    className="flex items-center gap-4 py-4 font-display text-xl text-ink aria-[current=page]:text-brand"
+                    className="flex items-center gap-4 py-4 font-display text-xl text-ink aria-[current=page]:text-brand-text"
                   >
-                    <span className="font-sans text-xs text-brand tabular-nums">
+                    <span className="font-sans text-xs text-brand-text tabular-nums">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {t(item.key)}

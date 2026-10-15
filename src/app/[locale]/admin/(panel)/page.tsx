@@ -108,7 +108,7 @@ export default async function DashboardPage() {
             <ul className="mt-4 divide-y divide-line">
               {todays.map((b) => (
                 <li key={b.id}>
-                  <Link href={`/admin/bookings/${b.id}`} className="flex items-center gap-3 py-3 hover:text-brand-hover">
+                  <Link href={`/admin/bookings/${b.id}`} className="flex items-center gap-3 py-3 hover:text-brand-text">
                     <span className="w-16 shrink-0 text-sm text-muted tabular-nums">{formatSlot(b.slot, locale)}</span>
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-medium">{b.name}</span>

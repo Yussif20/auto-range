@@ -1,5 +1,6 @@
 import { Check, Clock, Wallet } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
@@ -10,6 +11,9 @@ import { Link } from "@/i18n/navigation";
 import { getService, getServices } from "@/lib/data/catalog";
 import { formatPrice } from "@/lib/format";
 import { localized } from "@/lib/i18n-field";
+import { localeAlternates } from "@/lib/seo";
+import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 
 type Props = PageProps<"/[locale]/services/[slug]">;
 
@@ -24,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: localized(service, "title", locale),
     description: localized(service, "summary", locale),
+    alternates: localeAlternates(`/services/${slug}`, locale),
   };
 }
 
@@ -52,8 +57,31 @@ async function ServiceDetail({ params }: { params: Props["params"] }) {
 
   return (
     <>
-      <section className="hero-glow border-b border-line">
-        <div className="container-x py-14 sm:py-20">
+      <JsonLd
+        data={[
+          serviceSchema(service, locale),
+          breadcrumbSchema([
+            { name: tNav("home"), path: `/${locale}` },
+            { name: tNav("services"), path: `/${locale}/services` },
+            { name: localized(service, "title", locale), path: `/${locale}/services/${service.slug}` },
+          ]),
+        ]}
+      />
+      <section className="hero-glow relative overflow-hidden border-b border-line">
+        {service.image && (
+          <>
+            <Image
+              src={service.image}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover opacity-60 max-sm:opacity-30"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-bg via-bg/80 to-bg/30 ltr:bg-gradient-to-r" />
+          </>
+        )}
+        <div className="container-x relative py-14 sm:py-20">
           <nav aria-label={t("breadcrumb")} className="mb-8 text-sm text-muted">
             <Link href="/services" className="hover:text-ink">
               {tNav("services")}

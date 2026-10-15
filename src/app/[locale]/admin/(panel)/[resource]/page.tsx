@@ -125,7 +125,7 @@ const columns: Record<ResourceKey, string[]> = {
 
 function Cells({ row, locale, resource, hidden }: { row: ListRow; locale: string; resource: ResourceKey; hidden: string }) {
   const edit = (label: React.ReactNode) => (
-    <Link href={`/admin/${resource}/${row.id}`} className="font-medium hover:text-brand-hover">
+    <Link href={`/admin/${resource}/${row.id}`} className="font-medium hover:text-brand-text">
       {label}
     </Link>
   );

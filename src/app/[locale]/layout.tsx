@@ -4,7 +4,9 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { Alexandria, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
+import { pickClientMessages } from "@/i18n/client-messages";
 import { routing } from "@/i18n/routing";
+import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
 const alexandria = Alexandria({
@@ -16,7 +18,8 @@ const alexandria = Alexandria({
 const plex = IBM_Plex_Sans_Arabic({
   variable: "--font-plex",
   subsets: ["arabic", "latin"],
-  weight: ["400", "500", "600", "700"],
+  // Body copy uses regular and semibold; headings use Alexandria (variable).
+  weight: ["400", "600"],
   display: "swap",
 });
 
@@ -25,10 +28,21 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("meta");
+  const [t, locale] = await Promise.all([getTranslations("meta"), rootLocale()]);
+  const brand = t("title").split("|")[0].trim();
   return {
-    title: { default: t("title"), template: `%s | ${t("title").split("|")[0].trim()}` },
+    metadataBase: new URL(SITE_URL),
+    title: { default: t("title"), template: `%s | ${brand}` },
     description: t("description"),
+    applicationName: brand,
+    openGraph: {
+      type: "website",
+      siteName: brand,
+      locale: locale === "ar" ? "ar_EG" : "en_US",
+      alternateLocale: locale === "ar" ? "en_US" : "ar_EG",
+    },
+    twitter: { card: "summary_large_image" },
+    formatDetection: { telephone: false },
   };
 }
 
@@ -37,10 +51,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {
   const locale = await rootLocale();
   if (!hasLocale(routing.locales, locale)) notFound();
-  // Admin strings are only sent to admin pages (admin/layout.tsx adds them).
-  const publicMessages = Object.fromEntries(
-    Object.entries(await getMessages()).filter(([namespace]) => namespace !== "admin"),
-  );
+  // Public pages only ship what Client Components use; admin/layout.tsx adds the rest.
+  const publicMessages = pickClientMessages(await getMessages());
 
   return (
     <html

@@ -145,14 +145,14 @@ export function ResourceForm({
               ) : (
                 <label htmlFor={field.name} className={labelClass}>
                   {tField(field.name)}
-                  {field.required && <span className="text-brand-hover"> *</span>}
+                  {field.required && <span className="text-brand-text"> *</span>}
                 </label>
               )}
               {renderInput(field)}
               {field.type === "slug" && <p className="mt-1 text-xs text-muted">{t("slugHint")}</p>}
               {field.type === "lines" && <p className="mt-1 text-xs text-muted">{t("imagesHint")}</p>}
               {error(field.name) && (
-                <p id={`${field.name}-error`} className="mt-1 text-xs text-brand-hover">
+                <p id={`${field.name}-error`} className="mt-1 text-xs text-brand-text">
                   {t(`errors.${error(field.name)}`)}
                 </p>
               )}
@@ -180,7 +180,7 @@ export function ResourceForm({
           {deleteState?.errors?._ ? t("errors.inUse") : t("errors.server")}
         </p>
       )}
-      {state?.errors && <p role="alert" className="text-sm text-brand-hover">{t("fixErrors")}</p>}
+      {state?.errors && <p role="alert" className="text-sm text-brand-text">{t("fixErrors")}</p>}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
@@ -197,7 +197,7 @@ export function ResourceForm({
               if (!window.confirm(t("confirmDelete"))) return;
               startDelete(async () => setDeleteState(await deleteResource(resource, id)));
             }}
-            className={buttonClass("ghost", "md", "text-brand-hover")}
+            className={buttonClass("ghost", "md", "text-brand-text")}
           >
             <Trash2 className="size-4" />
             {t("delete")}

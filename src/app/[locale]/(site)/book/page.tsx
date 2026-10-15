@@ -8,10 +8,11 @@ import { bookableDates } from "@/lib/booking";
 import { getModels, getServices } from "@/lib/data/catalog";
 import { getSettings } from "@/lib/data/settings";
 import { localized } from "@/lib/i18n-field";
+import { localeAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("book");
-  return { title: t("metaTitle"), description: t("lead") };
+  return { title: t("metaTitle"), description: t("lead"), alternates: localeAlternates("/book", await getLocale()) };
 }
 
 export default async function BookPage({ searchParams }: PageProps<"/[locale]/book">) {

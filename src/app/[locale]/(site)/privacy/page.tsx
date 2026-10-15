@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { localeAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("privacy");
-  return { title: t("title") };
+  return { title: t("title"), alternates: localeAlternates("/privacy", await getLocale()) };
 }
 
 const sections = ["collect", "use", "share", "keep", "rights"] as const;

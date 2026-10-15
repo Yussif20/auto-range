@@ -1,7 +1,7 @@
 import { type BookingStatus, PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { referenceCode } from "../../src/lib/codes";
-import { categories, models, partDescription, parts, services } from "./catalog";
+import { categories, modelImages, models, partDescription, parts, serviceImages, services } from "./catalog";
 import { faqs, reviews, settings } from "./content";
 
 const prisma = new PrismaClient();
@@ -53,12 +53,12 @@ async function main() {
 
   const modelIds = new Map<string, string>();
   for (const [i, m] of models.entries()) {
-    const row = await prisma.vehicleModel.create({ data: { ...m, sortOrder: i } });
+    const row = await prisma.vehicleModel.create({ data: { ...m, image: modelImages[m.slug] ?? null, sortOrder: i } });
     modelIds.set(m.slug, row.id);
   }
 
   const serviceRows = await Promise.all(
-    services.map((s, i) => prisma.service.create({ data: { ...s, sortOrder: i } })),
+    services.map((s, i) => prisma.service.create({ data: { ...s, image: serviceImages[s.slug] ?? null, sortOrder: i } })),
   );
 
   const categoryIds = new Map<string, string>();

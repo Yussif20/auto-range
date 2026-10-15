@@ -6,6 +6,7 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  images: { formats: ["image/avif", "image/webp"] },
   // Browsers still ask for /favicon.ico; serve the SVG icon instead of hitting [locale].
   async rewrites() {
     return [{ source: "/favicon.ico", destination: "/icon.svg" }];

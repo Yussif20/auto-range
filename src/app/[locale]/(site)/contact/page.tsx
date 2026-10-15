@@ -6,10 +6,11 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { getSettings } from "@/lib/data/settings";
 import { localized } from "@/lib/i18n-field";
 import { whatsappLink } from "@/lib/whatsapp";
+import { localeAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("contact");
-  return { title: t("metaTitle"), description: t("lead") };
+  return { title: t("metaTitle"), description: t("lead"), alternates: localeAlternates("/contact", await getLocale()) };
 }
 
 export default async function ContactPage() {

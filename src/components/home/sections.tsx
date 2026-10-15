@@ -101,7 +101,7 @@ export async function WhyUs() {
                   </span>
                   <div className="pt-1">
                     <p className="font-semibold">
-                      <span className="me-2 text-brand tabular-nums">0{i + 1}</span>
+                      <span className="me-2 text-brand-text tabular-nums">0{i + 1}</span>
                       {t(`process.${key}.title`)}
                     </p>
                     <p className="mt-1 text-sm leading-7 text-muted">{t(`process.${key}.body`)}</p>
@@ -128,7 +128,7 @@ export async function ModelStrip() {
               href={{ pathname: "/parts", query: { model: m.slug } }}
               className="group flex h-full flex-col justify-between gap-6 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-brand/60"
             >
-              <span className="text-[0.65rem] font-semibold tracking-[0.2em] text-brand uppercase">
+              <span className="text-[0.65rem] font-semibold tracking-[0.2em] text-brand-text uppercase">
                 {t(`lines.${m.line}`)}
               </span>
               <span>
@@ -274,7 +274,7 @@ export async function VisitUs({ settings }: { settings: SiteSettings }) {
           <div>
             <dt className="text-muted">{t("phone")}</dt>
             <dd className="mt-1 text-base font-semibold">
-              <a href={`tel:${settings.phone}`} dir="ltr" className="hover:text-brand-hover">
+              <a href={`tel:${settings.phone}`} dir="ltr" className="hover:text-brand-text">
                 {settings.phone}
               </a>
             </dd>

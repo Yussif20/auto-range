@@ -28,7 +28,7 @@ export function PartCard({ part }: { part: PartCardData }) {
           <StockBadge stock={part.stock} />
         </div>
         <h3 className="text-base leading-snug font-semibold">
-          <Link href={`/parts/${part.slug}`} className="hover:text-brand-hover">
+          <Link href={`/parts/${part.slug}`} className="hover:text-brand-text">
             {name}
           </Link>
         </h3>

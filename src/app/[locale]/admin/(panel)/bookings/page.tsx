@@ -136,7 +136,7 @@ export default async function BookingsPage({ searchParams }: PageProps<"/[locale
                 return (
                   <tr key={b.id} className="hover:bg-surface-2/60">
                     <td className={tdClass}>
-                      <Link href={`/admin/bookings/${b.id}`} className="font-medium hover:text-brand-hover">
+                      <Link href={`/admin/bookings/${b.id}`} className="font-medium hover:text-brand-text">
                         {formatDay(iso, locale, { weekday: "short", month: "short" })}
                       </Link>
                       <span className="block text-xs text-muted tabular-nums">{formatSlot(b.slot, locale)}</span>
