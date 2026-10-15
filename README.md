@@ -55,7 +55,8 @@ Live at https://auto-range.vercel.app. Pushes to `main` deploy to production, an
   # load DATABASE_URL and DATABASE_URL_UNPOOLED from that file into your shell, then:
   SEED_FORCE=1 SEED_SAMPLE_DATA=0 SEED_ADMIN_EMAIL= SEED_ADMIN_PASSWORD= npx tsx prisma/seed/index.ts
   ```
-- Admin accounts: `ADMIN_EMAIL=... ADMIN_PASSWORD=... npm run admin:create`, run with the production `DATABASE_URL` loaded. The same command resets a forgotten password.
+- Admin accounts: run `npm run admin:create:prod` after `vercel env pull .env.production.local --environment=production`. It asks for the email and password (hidden). The same command resets a forgotten password, and `npm run admin:create` does the same locally.
+- Remove a test booking from production: `BOOKING_CODE=AR-XXXXX npm run booking:delete:prod`.
 
 ## Scripts
 

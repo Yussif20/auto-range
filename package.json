@@ -15,7 +15,9 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "vercel-build": "prisma migrate deploy && npm run build",
-    "admin:create": "tsx scripts/create-admin.ts"
+    "admin:create": "tsx scripts/create-admin.ts",
+    "admin:create:prod": "tsx --env-file=.env.production.local scripts/create-admin.ts",
+    "booking:delete:prod": "tsx --env-file=.env.production.local scripts/delete-booking.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
