@@ -58,6 +58,16 @@ Live at https://auto-range.vercel.app. Pushes to `main` deploy to production, an
 - Admin accounts: run `npm run admin:create:prod` after `vercel env pull .env.production.local --environment=production`. It asks for the email and password (hidden). The same command resets a forgotten password, and `npm run admin:create` does the same locally.
 - Remove a test booking from production: `BOOKING_CODE=AR-XXXXX npm run booking:delete:prod`.
 
+## Public demo (portfolio copy)
+
+The same code runs as a separate Vercel project with `DEMO_MODE=1` and its own database:
+
+- "Try the admin" signs in as `demo@example.com` with one click. Edits work; deleting, settings and password changes are off.
+- WhatsApp links never target a number: WhatsApp opens its contact picker with the message filled in. Demo contact and customer numbers are in the unassigned `+20 0…` range.
+- A banner marks the site as a demo. The demo is `noindex`, and robots.txt disallows everything, so it never competes with the real site.
+- Nightly reset: Vercel Cron calls `/api/cron/reset-demo` at 01:00 UTC. It needs `DEMO_MODE=1`, `Authorization: Bearer $CRON_SECRET`, and the `DEMO_DATABASE` row in `AppFlag`, which only the demo database has. On the real site the route returns 404.
+- Seed a new demo database once with `SEED_FORCE=1 SEED_DEMO=1 npx tsx prisma/seed/index.ts`.
+
 ## Scripts
 
 | Command | What it does |

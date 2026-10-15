@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
 import { pickClientMessages } from "@/i18n/client-messages";
 import { routing } from "@/i18n/routing";
+import { isDemo } from "@/lib/demo";
 import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
@@ -42,6 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
       alternateLocale: locale === "ar" ? "en_US" : "ar_EG",
     },
     twitter: { card: "summary_large_image" },
+    ...(isDemo() && { robots: { index: false, follow: false } }),
     formatDetection: { telephone: false },
   };
 }

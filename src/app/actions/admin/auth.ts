@@ -6,6 +6,8 @@ import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { createSession, deleteSession, requireAdmin } from "@/lib/auth/session";
 import { db } from "@/lib/db";
+import { isDemo } from "@/lib/demo";
+import { DEMO_ADMIN_EMAIL } from "../../../../prisma/seed/run";
 
 // Compared against when the email is unknown, so timing doesn't reveal which emails exist.
 const DUMMY_HASH = bcrypt.hashSync("timing-equaliser", 12);
@@ -32,6 +34,15 @@ export async function login(_prev: LoginState, form: FormData): Promise<LoginSta
   redirect({ href: "/admin", locale });
 }
 
+// Public demo only: signs in as the shared demo account without a password.
+export async function demoLogin(locale: string) {
+  if (!isDemo()) return;
+  const user = await db.adminUser.findUnique({ where: { email: DEMO_ADMIN_EMAIL } });
+  if (!user) return;
+  await createSession(user.id);
+  redirect({ href: "/admin", locale: routing.locales.includes(locale as "ar" | "en") ? locale : routing.defaultLocale });
+}
+
 export async function logout(locale: string) {
   await deleteSession();
   redirect({ href: "/admin/login", locale });
@@ -45,10 +56,11 @@ const passwordSchema = z
   })
   .refine((v) => v.next === v.confirm, { path: ["confirm"] });
 
-export type PasswordState = { ok?: true; error?: "current" | "short" | "mismatch" } | undefined;
+export type PasswordState = { ok?: true; error?: "current" | "short" | "mismatch" | "demo" } | undefined;
 
 export async function changePassword(_prev: PasswordState, form: FormData): Promise<PasswordState> {
   const admin = await requireAdmin();
+  if (isDemo()) return { error: "demo" };
   const parsed = passwordSchema.safeParse(Object.fromEntries(form));
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.path[0] === "confirm" ? "mismatch" : "short" };

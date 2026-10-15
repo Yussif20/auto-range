@@ -177,7 +177,11 @@ export function ResourceForm({
 
       {(state?.error || deleteState?.error || deleteState?.errors?._) && (
         <p role="alert" className="rounded-md border border-brand/40 bg-brand/10 px-4 py-3 text-sm">
-          {deleteState?.errors?._ ? t("errors.inUse") : t("errors.server")}
+          {deleteState?.errors?._
+            ? t("errors.inUse")
+            : deleteState?.error === "demo"
+              ? t("errors.demo")
+              : t("errors.server")}
         </p>
       )}
       {state?.errors && <p role="alert" className="text-sm text-brand-text">{t("fixErrors")}</p>}

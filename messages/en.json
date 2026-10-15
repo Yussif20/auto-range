@@ -629,7 +629,8 @@
         "invalid": "Invalid value.",
         "taken": "Already used, choose another.",
         "inUse": "Can't delete: it's used by other records.",
-        "server": "Something went wrong, try again."
+        "server": "Something went wrong, try again.",
+        "demo": "Deleting is turned off in the demo. Try editing instead."
       },
       "fixErrors": "Check the highlighted fields.",
       "save": "Save",
@@ -712,7 +713,8 @@
       "statsHint": "Real numbers only: customers see these on the home and About pages.",
       "save": "Save settings",
       "saved": "Saved and live on the site.",
-      "fixErrors": "Check the highlighted fields."
+      "fixErrors": "Check the highlighted fields.",
+      "demo": "Settings are read-only in the demo."
     },
     "account": {
       "title": "My account",
@@ -723,7 +725,8 @@
       "errors": {
         "current": "Current password is wrong.",
         "short": "New password is too short.",
-        "mismatch": "Passwords don't match."
+        "mismatch": "Passwords don't match.",
+        "demo": "Changing the password is turned off in the demo."
       },
       "changed": "Password changed.",
       "save": "Change password"
@@ -742,5 +745,12 @@
       "retry": "Try again",
       "home": "Home"
     }
+  },
+  "demo": {
+    "banner": "This is a demo: the data is made up and resets every night.",
+    "tryAdmin": "Try the admin →",
+    "loginTitle": "Try the admin",
+    "loginBody": "Sign in with a demo account in one click. Edits are allowed and reset every night.",
+    "loginButton": "Enter the demo"
   }
 }
