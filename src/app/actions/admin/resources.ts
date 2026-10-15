@@ -9,6 +9,7 @@ import { formValues } from "@/lib/admin/form-values";
 import { requireAdmin } from "@/lib/auth/session";
 import { CATALOG_TAG, CONTENT_TAG } from "@/lib/data/catalog";
 import { db } from "@/lib/db";
+import { isDemo } from "@/lib/demo";
 
 const slugify = (s: string) =>
   s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 80);
@@ -143,6 +144,8 @@ export async function saveResource(
 
 export async function deleteResource(resource: string, id: string): Promise<SaveState> {
   await requireAdmin();
+  // Deleting is off on the public demo; edits are allowed and reset nightly.
+  if (isDemo()) return { error: "demo" };
   if (!isResource(resource)) return { error: "server" };
 
   // Records still referenced elsewhere are hidden instead of deleted, or refused.

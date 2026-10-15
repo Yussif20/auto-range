@@ -145,6 +145,11 @@ export function SettingsForm({ values }: { values: Values }) {
             {t("saved")}
           </p>
         )}
+        {state?.demo && (
+          <p role="alert" className="text-sm text-warning">
+            {t("demo")}
+          </p>
+        )}
         {state?.errors && (
           <p role="alert" className="text-sm text-brand-text">
             {t("fixErrors")}

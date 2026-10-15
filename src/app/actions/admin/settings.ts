@@ -6,6 +6,7 @@ import { type FormValues, formValues } from "@/lib/admin/form-values";
 import { requireAdmin } from "@/lib/auth/session";
 import { SETTINGS_TAG } from "@/lib/data/settings";
 import { db } from "@/lib/db";
+import { isDemo } from "@/lib/demo";
 
 const optionalUrl = z.union([z.literal(""), z.url().max(300)]).transform((v) => v || null);
 const int = (min: number, max: number) => z.coerce.number().int().min(min).max(max);
@@ -36,10 +37,14 @@ const schema = z.object({
   closedWeekdays: z.array(z.coerce.number().int().min(0).max(6)),
 });
 
-export type SettingsState = { ok?: true; errors?: Record<string, true>; values?: FormValues } | undefined;
+export type SettingsState =
+  | { ok?: true; demo?: true; errors?: Record<string, true>; values?: FormValues }
+  | undefined;
 
 export async function saveSettings(_prev: SettingsState, form: FormData): Promise<SettingsState> {
   await requireAdmin();
+  // Contact details and booking rules stay fixed on the public demo.
+  if (isDemo()) return { demo: true };
   const input = { ...Object.fromEntries(form), closedWeekdays: form.getAll("closedWeekdays") };
   const parsed = schema.safeParse(input);
   if (!parsed.success) {

@@ -116,5 +116,5 @@ export function isResource(value: string): value is ResourceKey {
 
 export type FormErrors = Partial<Record<string, "required" | "invalid" | "taken" | "inUse">>;
 export type SaveState =
-  | { errors?: FormErrors; error?: "server"; values?: Record<string, string | string[]> }
+  | { errors?: FormErrors; error?: "server" | "demo"; values?: Record<string, string | string[]> }
   | undefined;

@@ -277,3 +277,10 @@ model ContactMessage {
 
   @@index([status])
 }
+
+// Marker rows. "DEMO_DATABASE" exists only in the public demo's database and
+// is required by the nightly reset, so the reset can never touch production.
+model AppFlag {
+  key       String   @id
+  createdAt DateTime @default(now())
+}

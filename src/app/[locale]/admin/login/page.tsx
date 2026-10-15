@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { LoginForm } from "@/components/admin/login-form";
+import { DemoLogin } from "@/components/admin/demo-login";
 import { LogoMark } from "@/components/brand/logo-mark";
+import { isDemo } from "@/lib/demo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("admin.login");
@@ -18,6 +20,7 @@ export default async function LoginPage() {
           <h1 className="mt-5 text-2xl font-bold">{t("title")}</h1>
           <p className="mt-2 text-sm text-muted">{t("lead")}</p>
         </div>
+        {isDemo() && <DemoLogin />}
         <LoginForm />
       </div>
     </main>

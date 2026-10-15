@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import { AdminShell } from "@/components/admin/shell";
+import { DemoBanner } from "@/components/layout/demo-banner";
+import { isDemo } from "@/lib/demo";
 import { requireAdmin } from "@/lib/auth/session";
 
 // Every admin page reads the session, so it renders per request rather than
@@ -8,13 +10,22 @@ export const instant = false;
 
 // The shell is static; everything under it waits for the session check,
 // so no admin data is read before the visitor is verified.
-export default function PanelLayout({ children }: LayoutProps<"/[locale]/admin">) {
+export default function PanelLayout({
+  children,
+}: LayoutProps<"/[locale]/admin">) {
   return (
-    <AdminShell>
-      <Suspense fallback={<div className="h-64 animate-pulse rounded-xl border border-line bg-surface" />}>
-        <AuthGate>{children}</AuthGate>
-      </Suspense>
-    </AdminShell>
+    <>
+      {isDemo() && <DemoBanner showAdminLink={false} />}
+      <AdminShell>
+        <Suspense
+          fallback={
+            <div className="h-64 animate-pulse rounded-xl border border-line bg-surface" />
+          }
+        >
+          <AuthGate>{children}</AuthGate>
+        </Suspense>
+      </AdminShell>
+    </>
   );
 }
 
