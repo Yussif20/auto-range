@@ -40,8 +40,8 @@ export function Header() {
             : "border-b border-transparent py-4"
         }`}
       >
-        <div className="container-x flex items-center justify-between gap-6">
-          <Link href="/" aria-label={t("home")} onClick={() => setOpen(false)}>
+        <div className="container-x flex items-center justify-between gap-3 sm:gap-6">
+          <Link href="/" aria-label={t("home")} onClick={() => setOpen(false)} className="shrink-0">
             <Logo />
           </Link>
 
@@ -61,12 +61,13 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* Below 400px the switch moves into the mobile menu so the header fits. */}
             <Link
               href={pathname}
               locale={otherLocale}
               aria-label={t("switchLocaleLabel")}
-              className="rounded-md px-2.5 py-2 text-sm text-muted transition-colors hover:text-ink"
+              className="hidden rounded-md px-2 py-2 text-sm text-muted transition-colors hover:text-ink min-[400px]:inline-block"
             >
               {t("switchLocale")}
             </Link>
@@ -114,6 +115,14 @@ export function Header() {
                 </li>
               ))}
             </ul>
+            <Link
+              href={pathname}
+              locale={otherLocale}
+              onClick={() => setOpen(false)}
+              className="mt-6 inline-flex rounded-md border border-line px-4 py-2.5 text-sm text-ink min-[400px]:hidden"
+            >
+              {t("switchLocale")}
+            </Link>
           </nav>
         </div>
       )}

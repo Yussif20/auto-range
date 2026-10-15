@@ -32,6 +32,7 @@ async function reset() {
     prisma.review.deleteMany(),
     prisma.galleryItem.deleteMany(),
     prisma.faq.deleteMany(),
+    prisma.contactMessage.deleteMany(),
   ]);
 }
 
