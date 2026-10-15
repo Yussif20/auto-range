@@ -85,7 +85,8 @@ export default async function DashboardPage() {
           <UpcomingChart
             data={days.map((d) => ({
               date: d,
-              label: formatDay(d, locale, { weekday: "short", month: undefined }),
+              // Day of month only: full weekday names (Arabic especially) do not fit under a bar.
+              label: formatDay(d, locale, { weekday: undefined, month: undefined }),
               full: formatDay(d, locale),
               count: perDay.get(d) ?? 0,
             }))}
