@@ -1,4 +1,4 @@
-import { site } from "@/config/site";
+import type { SiteSettings } from "@/lib/data/settings";
 
 // Simple brand glyphs (Lucide no longer ships brand icons).
 const icons = {
@@ -12,13 +12,22 @@ const icons = {
     "M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z",
 } as const;
 
-export function SocialLinks({ label }: { label: string }) {
+export function SocialLinks({
+  label,
+  settings,
+}: {
+  label: string;
+  settings: SiteSettings;
+}) {
+  const names = (Object.keys(icons) as (keyof typeof icons)[]).filter(
+    (name) => settings[name],
+  );
   return (
     <ul aria-label={label} className="flex gap-2">
-      {(Object.keys(icons) as (keyof typeof icons)[]).map((name) => (
+      {names.map((name) => (
         <li key={name}>
           <a
-            href={site.socials[name]}
+            href={settings[name]!}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={name}
