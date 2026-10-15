@@ -256,3 +256,22 @@ model AdminUser {
   passwordHash String
   createdAt    DateTime @default(now())
 }
+
+enum MessageStatus {
+  NEW
+  REPLIED
+  ARCHIVED
+}
+
+model ContactMessage {
+  id        String        @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  subject   String?
+  body      String
+  status    MessageStatus @default(NEW)
+  createdAt DateTime      @default(now())
+
+  @@index([status])
+}

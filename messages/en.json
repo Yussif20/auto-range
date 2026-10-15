@@ -143,7 +143,8 @@
     "hours": "Opening hours",
     "rights": "© {year} Auto Range. All rights reserved.",
     "disclaimer": "Land Rover and Range Rover are trademarks of their respective owners. Auto Range is an independent service center.",
-    "follow": "Follow us"
+    "follow": "Follow us",
+    "privacy": "Privacy policy"
   },
   "services": {
     "metaTitle": "Land Rover & Range Rover services",
@@ -259,6 +260,198 @@
       "name": "Name: {name}",
       "phone": "Mobile: {phone}",
       "note": "Notes: {note}"
+    }
+  },
+  "bookingStatus": {
+    "NEW": "Booking received",
+    "CONFIRMED": "Appointment confirmed",
+    "IN_PROGRESS": "Work in progress",
+    "READY": "Ready for collection",
+    "DONE": "Collected",
+    "CANCELLED": "Cancelled"
+  },
+  "book": {
+    "metaTitle": "Book a service",
+    "eyebrow": "Book a service",
+    "title": "Book your visit in three steps",
+    "lead": "Choose your car, the service and a time that suits you. You'll get a booking code to track your car online.",
+    "steps": {
+      "car": "Your car",
+      "services": "Services",
+      "time": "Time & details"
+    },
+    "car": {
+      "title": "Which car do you drive?",
+      "year": "Model year",
+      "chooseYear": "Choose year",
+      "chooseModelFirst": "Choose a model first"
+    },
+    "services": {
+      "title": "What does your car need?",
+      "hint": "You can pick more than one. Not sure? Choose Advanced diagnostics.",
+      "from": "From {price}"
+    },
+    "time": {
+      "title": "Pick a day and time",
+      "loading": "Loading available times…",
+      "lastPlace": "Last place"
+    },
+    "contact": {
+      "title": "Your details",
+      "name": "Name",
+      "phone": "Mobile number",
+      "notes": "Notes about the problem (optional)"
+    },
+    "back": "Back",
+    "next": "Next",
+    "confirm": "Confirm booking",
+    "summary": {
+      "title": "Booking summary",
+      "car": "Car",
+      "services": "Services",
+      "when": "When",
+      "note": "Prices are estimates. We confirm the final cost with you after inspection and before any repair."
+    },
+    "done": {
+      "title": "Your booking is in",
+      "body": "We'll contact you to confirm the appointment. Send it on WhatsApp for a faster confirmation.",
+      "codeLabel": "Booking code",
+      "whatsapp": "Send on WhatsApp",
+      "track": "Track booking"
+    },
+    "errors": {
+      "noSlot": "Choose an available time.",
+      "invalid": "Check your booking details and try again.",
+      "invalidPhone": "Enter a valid mobile number.",
+      "invalidName": "Enter your name.",
+      "slotFull": "That time just filled up. Please choose another.",
+      "dateUnavailable": "That time is no longer available. Please choose another.",
+      "server": "Something went wrong. Try again or book on WhatsApp."
+    },
+    "message": {
+      "intro": "Hi Auto Range, I'd like to confirm booking {code}:",
+      "car": "Car: {model} {year}",
+      "services": "Services: {services}",
+      "when": "When: {date} at {slot}",
+      "name": "Name: {name}",
+      "phone": "Mobile: {phone}",
+      "notes": "Notes: {notes}"
+    }
+  },
+  "track": {
+    "metaTitle": "Track your booking",
+    "eyebrow": "Track booking",
+    "title": "Where's my car?",
+    "lead": "Enter your booking code and the mobile number you booked with to see what stage your car is at.",
+    "code": "Booking code",
+    "phone": "Mobile number",
+    "submit": "Track",
+    "hint": "Your booking code starts with AR and is in your confirmation.",
+    "empty": "Your car's status will appear here.",
+    "booking": "Booking",
+    "car": "Car",
+    "when": "Appointment",
+    "services": "Services",
+    "cancelled": "This booking was cancelled. Contact us or make a new booking to rebook.",
+    "steps": {
+      "NEW": "We've received your request",
+      "CONFIRMED": "We'll confirm the time with you",
+      "IN_PROGRESS": "Inspection and repair",
+      "READY": "We'll let you know when it's ready",
+      "DONE": "Collection"
+    },
+    "errors": {
+      "invalid": "Check the booking code and mobile number.",
+      "notFound": "We couldn't find a booking with those details. Check both and try again."
+    }
+  },
+  "about": {
+    "metaTitle": "About us",
+    "eyebrow": "About us",
+    "title": "A workshop built around one car",
+    "lead": "Auto Range is an independent Land Rover and Range Rover specialist, founded by technicians who spent years on these cars in particular.",
+    "story": {
+      "title": "Our story",
+      "p1": "We started because Land Rover owners had two choices: a dealer with high prices and long waits, or a general garage working by guesswork.",
+      "p2": "We set out to be the third option: dealer-level know-how and equipment, with transparency, fair prices and personal attention for every car.",
+      "p3": "Today we look after the whole Land Rover family, from Evoque to Defender, and keep every customer updated until they collect their car."
+    },
+    "values": {
+      "craft": {
+        "title": "Craft",
+        "body": "We fix the real cause of a fault, not just the symptom."
+      },
+      "honesty": {
+        "title": "Clarity",
+        "body": "You know the diagnosis and the cost before we start. No surprises at collection."
+      },
+      "respect": {
+        "title": "Your time matters",
+        "body": "A fixed appointment, regular updates and handover when we said."
+      },
+      "longevity": {
+        "title": "A longer life for your car",
+        "body": "Genuine parts and preventive care that protect your car's value."
+      }
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact us",
+    "eyebrow": "Contact",
+    "title": "We're here to help",
+    "lead": "Call or WhatsApp us for the fastest reply, or leave a message and we'll get back to you.",
+    "channels": {
+      "call": "Call us",
+      "whatsapp": "WhatsApp",
+      "whatsappValue": "Start a chat",
+      "email": "Email",
+      "visit": "Address",
+      "hours": "Opening hours"
+    },
+    "mapTitle": "Auto Range on the map",
+    "form": {
+      "title": "Send us a message",
+      "name": "Name",
+      "phone": "Mobile number",
+      "email": "Email (optional)",
+      "subject": "Subject (optional)",
+      "body": "Your message",
+      "send": "Send message",
+      "sentTitle": "Message received",
+      "sentBody": "We'll reply as soon as we can during opening hours.",
+      "another": "Send another message",
+      "errors": {
+        "name": "Enter your name.",
+        "phone": "Enter a valid mobile number.",
+        "email": "Enter a valid email or leave it empty.",
+        "body": "Write your message.",
+        "invalid": "Check the details and try again.",
+        "server": "Something went wrong. Try again or message us on WhatsApp."
+      }
+    }
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "lead": "We collect only what we need to serve you, and we never sell it.",
+    "collect": {
+      "title": "What we collect",
+      "body": "When you book, request parts or message us, we store your name, mobile number, car details and any notes you write. Your parts request list stays on your device until you send it."
+    },
+    "use": {
+      "title": "How we use it",
+      "body": "To confirm appointments, answer your questions and show your car's status on the tracking page. We don't send marketing messages without your consent."
+    },
+    "share": {
+      "title": "Who we share it with",
+      "body": "Only the service providers needed to run the site (hosting and database), or a competent legal authority when required."
+    },
+    "keep": {
+      "title": "How long we keep it",
+      "body": "We keep booking records to follow your car's service history and warranty. You can ask us to delete them at any time."
+    },
+    "rights": {
+      "title": "Your rights",
+      "body": "You can ask for a copy of your data, or for it to be corrected or deleted, by phone, WhatsApp or email."
     }
   }
 }

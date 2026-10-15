@@ -82,7 +82,13 @@ export async function Footer({
 
       <div className="border-t border-line">
         <div className="container-x flex flex-col gap-2 py-6 text-xs text-muted sm:flex-row sm:justify-between">
-          <p>{t("rights", { year })}</p>
+          <p>
+            {t("rights", { year })}
+            <span className="mx-2">·</span>
+            <Link href="/privacy" className="hover:text-ink">
+              {t("privacy")}
+            </Link>
+          </p>
           <p>{t("disclaimer")}</p>
         </div>
       </div>

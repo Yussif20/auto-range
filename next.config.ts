@@ -6,6 +6,10 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // Browsers still ask for /favicon.ico; serve the SVG icon instead of hitting [locale].
+  async rewrites() {
+    return [{ source: "/favicon.ico", destination: "/icon.svg" }];
+  },
   turbopack: {
     rules: {
       "*.css": {
