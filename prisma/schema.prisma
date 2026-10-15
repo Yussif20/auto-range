@@ -1,0 +1,258 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Bilingual text is stored as Ar/En column pairs; see src/lib/i18n-field.ts.
+
+enum VehicleLine {
+  RANGE_ROVER
+  DISCOVERY
+  DEFENDER
+}
+
+model VehicleModel {
+  id        String      @id @default(cuid())
+  slug      String      @unique
+  nameAr    String
+  nameEn    String
+  line      VehicleLine
+  yearFrom  Int
+  yearTo    Int?
+  image     String?
+  sortOrder Int         @default(0)
+
+  compatibilities PartCompatibility[]
+  bookings        Booking[]
+}
+
+model Service {
+  id         String  @id @default(cuid())
+  slug       String  @unique
+  titleAr    String
+  titleEn    String
+  summaryAr  String
+  summaryEn  String
+  bodyAr     String
+  bodyEn     String
+  icon       String
+  image      String?
+  priceFrom  Int?
+  durationHr Int?
+  sortOrder  Int     @default(0)
+  active     Boolean @default(true)
+
+  bookings BookingService[]
+}
+
+model PartCategory {
+  id        String @id @default(cuid())
+  slug      String @unique
+  nameAr    String
+  nameEn    String
+  icon      String
+  sortOrder Int    @default(0)
+
+  parts Part[]
+}
+
+enum StockStatus {
+  IN_STOCK
+  LOW_STOCK
+  ON_ORDER
+  OUT_OF_STOCK
+}
+
+model Part {
+  id         String      @id @default(cuid())
+  slug       String      @unique
+  nameAr     String
+  nameEn     String
+  descAr     String
+  descEn     String
+  oemNumber  String      @unique
+  brand      String      @default("Genuine Land Rover")
+  price      Int?
+  stock      StockStatus @default(IN_STOCK)
+  images     String[]
+  featured   Boolean     @default(false)
+  active     Boolean     @default(true)
+  categoryId String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  category        PartCategory        @relation(fields: [categoryId], references: [id])
+  compatibilities PartCompatibility[]
+  requestItems    PartRequestItem[]
+
+  @@index([categoryId])
+  @@index([featured])
+}
+
+model PartCompatibility {
+  partId   String
+  modelId  String
+  yearFrom Int?
+  yearTo   Int?
+
+  part  Part         @relation(fields: [partId], references: [id], onDelete: Cascade)
+  model VehicleModel @relation(fields: [modelId], references: [id], onDelete: Cascade)
+
+  @@id([partId, modelId])
+  @@index([modelId])
+}
+
+enum BookingStatus {
+  NEW
+  CONFIRMED
+  IN_PROGRESS
+  READY
+  DONE
+  CANCELLED
+}
+
+model Booking {
+  id        String        @id @default(cuid())
+  code      String        @unique
+  modelId   String
+  year      Int
+  name      String
+  phone     String
+  date      DateTime      @db.Date
+  slot      String
+  notes     String?
+  locale    String        @default("ar")
+  status    BookingStatus @default(NEW)
+  adminNote String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  model    VehicleModel     @relation(fields: [modelId], references: [id])
+  services BookingService[]
+  events   BookingEvent[]
+
+  @@index([date, slot])
+  @@index([status])
+}
+
+model BookingService {
+  bookingId String
+  serviceId String
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id])
+
+  @@id([bookingId, serviceId])
+}
+
+// Status history shown on the public tracking timeline.
+model BookingEvent {
+  id        String        @id @default(cuid())
+  bookingId String
+  status    BookingStatus
+  createdAt DateTime      @default(now())
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+}
+
+enum RequestStatus {
+  NEW
+  CONTACTED
+  FULFILLED
+  CLOSED
+}
+
+model PartRequest {
+  id        String        @id @default(cuid())
+  code      String        @unique
+  name      String?
+  phone     String
+  note      String?
+  status    RequestStatus @default(NEW)
+  createdAt DateTime      @default(now())
+
+  items PartRequestItem[]
+}
+
+model PartRequestItem {
+  requestId String
+  partId    String
+  quantity  Int    @default(1)
+
+  request PartRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  part    Part        @relation(fields: [partId], references: [id])
+
+  @@id([requestId, partId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  author    String
+  carAr     String
+  carEn     String
+  rating    Int
+  bodyAr    String
+  bodyEn    String
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model GalleryItem {
+  id        String  @id @default(cuid())
+  titleAr   String
+  titleEn   String
+  before    String
+  after     String
+  sortOrder Int     @default(0)
+  published Boolean @default(true)
+}
+
+model Faq {
+  id         String  @id @default(cuid())
+  questionAr String
+  questionEn String
+  answerAr   String
+  answerEn   String
+  sortOrder  Int     @default(0)
+  published  Boolean @default(true)
+}
+
+// One row (id = 1). Every contact detail and stat on the site reads from here.
+model Settings {
+  id               Int      @id @default(1)
+  phone            String
+  whatsapp         String
+  email            String
+  addressAr        String
+  addressEn        String
+  mapUrl           String
+  hoursAr          String
+  hoursEn          String
+  facebook         String?
+  instagram        String?
+  tiktok           String?
+  youtube          String?
+  statCustomers    Int
+  statYears        Int
+  statParts        Int
+  statRating       Float
+  slotCapacity     Int      @default(2)
+  slots            String[]
+  closedWeekdays   Int[]
+  bookingDaysAhead Int      @default(30)
+  updatedAt        DateTime @updatedAt
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+}

@@ -9,6 +9,7 @@ import { ContactDock } from "@/components/layout/contact-dock";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { routing } from "@/i18n/routing";
+import { getSettings } from "@/lib/data/settings";
 import "../globals.css";
 
 const alexandria = Alexandria({
@@ -45,6 +46,7 @@ async function currentYear() {
 export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {
   const locale = await rootLocale();
   if (!hasLocale(routing.locales, locale)) notFound();
+  const settings = await getSettings();
 
   return (
     <html
@@ -56,8 +58,8 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
         <NextIntlClientProvider>
           <Header />
           <main className="flex-1">{children}</main>
-          <Footer year={await currentYear()} />
-          <ContactDock />
+          <Footer year={await currentYear()} settings={settings} />
+          <ContactDock settings={settings} />
         </NextIntlClientProvider>
       </body>
     </html>

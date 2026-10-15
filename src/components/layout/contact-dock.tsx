@@ -1,16 +1,17 @@
 import { CalendarCheck, MessageCircle, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { site, whatsappLink } from "@/config/site";
 import { Link } from "@/i18n/navigation";
+import type { SiteSettings } from "@/lib/data/settings";
+import { whatsappLink } from "@/lib/whatsapp";
 
 // Floating WhatsApp on desktop, a Call / WhatsApp / Book bar on mobile.
-export function ContactDock() {
+export function ContactDock({ settings }: { settings: SiteSettings }) {
   const t = useTranslations("actions");
 
   return (
     <>
       <a
-        href={whatsappLink()}
+        href={whatsappLink(settings.whatsapp)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t("chatWhatsapp")}
@@ -24,14 +25,14 @@ export function ContactDock() {
         className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 border-t border-line bg-bg/95 backdrop-blur-md lg:hidden"
       >
         <a
-          href={`tel:${site.phone}`}
+          href={`tel:${settings.phone}`}
           className="flex flex-col items-center gap-1 py-2.5 text-xs text-muted"
         >
           <Phone className="size-5 text-ink" />
           {t("call")}
         </a>
         <a
-          href={whatsappLink()}
+          href={whatsappLink(settings.whatsapp)}
           target="_blank"
           rel="noopener noreferrer"
           className="flex flex-col items-center gap-1 py-2.5 text-xs text-muted"
