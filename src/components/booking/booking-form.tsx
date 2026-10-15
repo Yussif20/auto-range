@@ -122,8 +122,8 @@ export function BookingForm({
   const selectedServices = services.filter((s) => serviceIds.includes(s.id));
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_20rem]">
-      <form onSubmit={onSubmit} className="rounded-xl border border-line bg-surface">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <form onSubmit={onSubmit} className="min-w-0 rounded-xl border border-line bg-surface">
         <ol className="flex border-b border-line">
           {STEPS.map((key, i) => (
             <li key={key} className="flex-1">
