@@ -4,16 +4,28 @@ Website and admin for **Auto Range**, a Land Rover / Range Rover service center:
 
 ## Stack
 
-Next.js 16 (App Router, Cache Components) · TypeScript · Tailwind CSS v4 · next-intl · Prisma 6 + PostgreSQL
+Next.js 16 (App Router, Cache Components) · TypeScript · Tailwind CSS v4 · next-intl · Prisma 6 + PostgreSQL · jose (admin session)
 
 ## Local setup
 
 1. Start Postgres (any instance; the dev default is the Docker container on port 3500) and create a database `auto_range`.
-2. `cp .env.example .env` and adjust `DATABASE_URL`.
+2. `cp .env.example .env` and adjust `DATABASE_URL`. Set `SESSION_SECRET` to a random string of 32+ characters (`openssl rand -base64 32`).
 3. `npm install` (runs `prisma generate`)
 4. `npm run db:migrate` then `npm run db:seed`
 
-The seed wipes and refills the catalog, content and sample bookings. It refuses to run with `NODE_ENV=production` unless `SEED_FORCE=1`. Reviews and stats in `prisma/seed/content.ts` are placeholders: replace them with real ones before launch.
+The seed wipes and refills the catalog, content, sample bookings, part requests and messages. It refuses to run with `NODE_ENV=production` unless `SEED_FORCE=1`. Reviews and stats in `prisma/seed/content.ts` are placeholders: replace them with real ones before launch.
+
+## Admin
+
+`/ar/admin` or `/en/admin`. The seed creates the first admin from `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`. Change the password under **My account** after the first sign-in.
+
+- **Dashboard**: new bookings, cars in the workshop, new requests and messages, a 14-day booking chart, today's appointments.
+- **Bookings**: filter by upcoming, past or status, and search. On the detail page, move a booking through its statuses (each change is logged and shown on the customer's tracking page), keep internal notes, and send ready-made WhatsApp messages in the customer's language.
+- **Part requests / Messages**: inboxes with status changes and WhatsApp/email reply links.
+- **Parts, categories, services, models, reviews, FAQ**: one config-driven editor (`src/lib/admin/resources.ts`). Records still in use are hidden instead of deleted.
+- **Settings**: contact details, hours, socials, home-page numbers, booking slots, capacity and days off.
+
+Security: the proxy only does a quick cookie check. Every admin page and server action verifies the signed session itself (`requireAdmin` / `adminPage` in `src/lib/auth/session.ts`).
 
 ## Scripts
 
@@ -27,15 +39,20 @@ The seed wipes and refills the catalog, content and sample bookings. It refuses 
 
 ## Structure
 
-- `src/app/[locale]/`: pages; the root layout sets `lang`/`dir` from the locale
+- `src/app/[locale]/`: the root layout sets `lang`/`dir`. `(site)/` holds the public pages and chrome; `admin/` holds the login and the `(panel)/` back office.
+- `src/app/actions/`: server actions (booking, tracking, part requests, contact, `admin/*`)
 - `src/i18n/`: routing, request config, locale-aware `Link`
-- `src/proxy.ts`: locale redirect (Next 16 "proxy", formerly middleware)
-- `src/components/`: `brand/` (logo), `layout/` (header, footer, contact dock)
-- `src/config/`: navigation
-- `src/lib/`: Prisma client (`db.ts`), cached data loaders (`data/`), `localized()` for Ar/En column pairs
-- `prisma/`: schema, migrations, seed (`seed/catalog.ts` models/services/parts, `seed/content.ts` reviews/FAQ/settings)
+- `src/proxy.ts`: locale redirect plus the admin cookie check (Next 16 "proxy", formerly middleware)
+- `src/components/`: `brand/`, `layout/`, `home/`, `parts/`, `services/`, `booking/`, `request-list/`, `admin/`, `ui/`
+- `src/lib/`:
+  - `db.ts`: Prisma client
+  - `data/`: cached loaders, tagged for `updateTag`
+  - `booking.ts`: Cairo-time dates, slot capacity
+  - `auth/`: session handling
+  - `admin/`: the editor config
+- `prisma/`: schema, migrations, seed
 - Contact details, hours, socials, stats and booking slots live in the `Settings` row, not in code
-- `messages/`: translations
+- `messages/`: translations (the `admin` namespace is only sent to admin pages)
 
 ## Brand tokens
 

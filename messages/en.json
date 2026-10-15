@@ -453,5 +453,277 @@
       "title": "Your rights",
       "body": "You can ask for a copy of your data, or for it to be corrected or deleted, by phone, WhatsApp or email."
     }
+  },
+  "admin": {
+    "login": {
+      "title": "Admin sign in",
+      "lead": "Auto Range · staff only",
+      "email": "Email",
+      "password": "Password",
+      "invalid": "Wrong email or password.",
+      "submit": "Sign in"
+    },
+    "nav": {
+      "label": "Admin menu",
+      "open": "Open menu",
+      "close": "Close menu",
+      "groups": {
+        "operations": "Operations",
+        "catalog": "Catalog",
+        "content": "Content",
+        "system": "System"
+      },
+      "dashboard": "Dashboard",
+      "bookings": "Bookings",
+      "requests": "Part requests",
+      "messages": "Messages",
+      "parts": "Parts",
+      "categories": "Categories",
+      "services": "Services",
+      "models": "Models",
+      "reviews": "Reviews",
+      "faqs": "FAQ",
+      "settings": "Settings",
+      "account": "My account",
+      "viewSite": "View site",
+      "switchLocale": "العربية",
+      "logout": "Sign out"
+    },
+    "inboxStatus": {
+      "open": "Open",
+      "NEW": "New",
+      "CONTACTED": "Contacted",
+      "FULFILLED": "Fulfilled",
+      "CLOSED": "Closed",
+      "REPLIED": "Replied",
+      "ARCHIVED": "Archived"
+    },
+    "dashboard": {
+      "title": "Overview",
+      "tiles": {
+        "newBookings": "New bookings",
+        "inWorkshop": "Cars in the workshop",
+        "newRequests": "New part requests",
+        "newMessages": "New messages"
+      },
+      "upcoming": {
+        "title": "Upcoming bookings",
+        "lead": "Bookings per open day over the next two weeks (daily capacity {capacity}).",
+        "bar": "{day}: {count} bookings",
+        "tooltip": "{count} of {capacity}",
+        "table": "Show as table"
+      },
+      "today": {
+        "title": "Today's appointments",
+        "all": "All bookings",
+        "empty": "No appointments today."
+      }
+    },
+    "bookings": {
+      "title": "Bookings",
+      "count": "{count, plural, =0 {No bookings} one {# booking} other {# bookings}}",
+      "when": {
+        "upcoming": "Upcoming",
+        "past": "Past",
+        "all": "All"
+      },
+      "allStatuses": "All statuses",
+      "search": "Search name, code or mobile",
+      "empty": "No matching bookings.",
+      "cols": {
+        "when": "When",
+        "customer": "Customer",
+        "car": "Car",
+        "code": "Code",
+        "status": "Status"
+      },
+      "servicesCount": "{count, plural, one {# service} other {# services}}"
+    },
+    "booking": {
+      "back": "All bookings",
+      "when": "Appointment",
+      "car": "Car",
+      "customer": "Customer",
+      "phone": "Mobile",
+      "call": "Call",
+      "services": "Services",
+      "customerNotes": "Customer notes",
+      "adminNote": "Internal notes",
+      "adminNoteHint": "Never shown to the customer.",
+      "saveNote": "Save note",
+      "status": "Status",
+      "finished": "This booking is closed.",
+      "moveTo": "Move to: {status}",
+      "history": "History",
+      "whatsapp": "Message the customer",
+      "whatsappHint": "Ready-made messages in the customer's language. They open in WhatsApp so you can review before sending.",
+      "templates": {
+        "confirm": "Confirm appointment",
+        "ready": "Car is ready"
+      },
+      "messages": {
+        "confirm": "Hi {name}, your Auto Range appointment on {when} is confirmed. Booking code {code}. See you then!",
+        "ready": "Hi {name}, your car is ready to collect from Auto Range. Booking code {code}. Opening hours: {hours}."
+      }
+    },
+    "requests": {
+      "title": "Part requests",
+      "lead": "Lists customers sent from the parts shop.",
+      "empty": "No requests.",
+      "noName": "No name",
+      "estimate": "Estimated total:",
+      "plusOnRequest": "+ items priced on request",
+      "reply": "Reply on WhatsApp",
+      "mark": {
+        "CONTACTED": "Mark contacted",
+        "FULFILLED": "Mark fulfilled",
+        "CLOSED": "Close"
+      }
+    },
+    "messages": {
+      "title": "Messages",
+      "lead": "Contact form messages.",
+      "empty": "No messages.",
+      "whatsapp": "WhatsApp",
+      "email": "Email",
+      "mark": {
+        "REPLIED": "Mark replied",
+        "ARCHIVED": "Archive"
+      }
+    },
+    "resources": {
+      "count": "{count, plural, =0 {No items} one {# item} other {# items}}",
+      "add": "Add new",
+      "saved": "Saved.",
+      "deleted": "Deleted.",
+      "searchParts": "Search name or OEM number",
+      "empty": "Nothing here yet.",
+      "hidden": "hidden",
+      "cols": {
+        "name": "Name",
+        "oem": "OEM",
+        "category": "Category",
+        "price": "Price",
+        "stock": "Availability",
+        "slug": "Slug",
+        "parts": "Parts",
+        "order": "Order",
+        "visible": "Visible",
+        "line": "Family",
+        "years": "Years",
+        "author": "Customer",
+        "car": "Car",
+        "rating": "Rating",
+        "question": "Question"
+      },
+      "newTitle": "Add new",
+      "editTitle": "Edit",
+      "choose": "Choose…",
+      "slugHint": "Generated from the English name if left empty.",
+      "imagesHint": "One https URL per line. The first image is the main one.",
+      "errors": {
+        "required": "Required.",
+        "invalid": "Invalid value.",
+        "taken": "Already used, choose another.",
+        "inUse": "Can't delete: it's used by other records.",
+        "server": "Something went wrong, try again."
+      },
+      "fixErrors": "Check the highlighted fields.",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "confirmDelete": "Delete this item? Items used in past requests are hidden instead of deleted."
+    },
+    "fields": {
+      "nameAr": "Name (Arabic)",
+      "nameEn": "Name (English)",
+      "slug": "URL slug",
+      "oemNumber": "OEM number",
+      "categoryId": "Category",
+      "stock": "Availability",
+      "price": "Price (EGP)",
+      "brand": "Brand",
+      "descAr": "Description (Arabic)",
+      "descEn": "Description (English)",
+      "images": "Image URLs",
+      "models": "Fits",
+      "featured": "Featured on home page",
+      "active": "Visible on site",
+      "icon": "Icon",
+      "sortOrder": "Order",
+      "titleAr": "Title (Arabic)",
+      "titleEn": "Title (English)",
+      "summaryAr": "Summary (Arabic)",
+      "summaryEn": "Summary (English)",
+      "bodyAr": "Details (Arabic)",
+      "bodyEn": "Details (English)",
+      "priceFrom": "Price from (EGP)",
+      "durationHr": "Duration (hours)",
+      "image": "Image URL",
+      "line": "Family",
+      "yearFrom": "From year",
+      "yearTo": "To year",
+      "author": "Customer name",
+      "rating": "Rating (1–5)",
+      "carAr": "Car (Arabic)",
+      "carEn": "Car (English)",
+      "published": "Published",
+      "questionAr": "Question (Arabic)",
+      "questionEn": "Question (English)",
+      "answerAr": "Answer (Arabic)",
+      "answerEn": "Answer (English)"
+    },
+    "settings": {
+      "title": "Settings",
+      "lead": "Every contact detail, number and booking rule on the site comes from here.",
+      "sections": {
+        "contact": "Contact details",
+        "social": "Social accounts",
+        "stats": "Home page numbers",
+        "booking": "Booking"
+      },
+      "fields": {
+        "phone": "Phone",
+        "whatsapp": "WhatsApp number (with country code)",
+        "email": "Email",
+        "mapUrl": "Google Maps embed URL",
+        "addressAr": "Address (Arabic)",
+        "addressEn": "Address (English)",
+        "hoursAr": "Opening hours (Arabic)",
+        "hoursEn": "Opening hours (English)",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube",
+        "statCustomers": "Customers served",
+        "statYears": "Years of experience",
+        "statParts": "Parts available",
+        "statRating": "Rating (out of 5)",
+        "slotCapacity": "Cars per time slot",
+        "bookingDaysAhead": "Days open for booking",
+        "slots": "Time slots",
+        "closedWeekdays": "Days off"
+      },
+      "invalid": "Invalid value.",
+      "slotsHint": "24-hour times separated by commas, e.g. 09:00, 10:00, 11:00",
+      "statsHint": "Real numbers only: customers see these on the home and About pages.",
+      "save": "Save settings",
+      "saved": "Saved and live on the site.",
+      "fixErrors": "Check the highlighted fields."
+    },
+    "account": {
+      "title": "My account",
+      "changePassword": "Change password",
+      "current": "Current password",
+      "next": "New password (10+ characters)",
+      "confirm": "Confirm new password",
+      "errors": {
+        "current": "Current password is wrong.",
+        "short": "New password is too short.",
+        "mismatch": "Passwords don't match."
+      },
+      "changed": "Password changed.",
+      "save": "Change password"
+    }
   }
 }

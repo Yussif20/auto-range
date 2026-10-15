@@ -16,6 +16,15 @@ const daysFromToday = (n: number) => {
   return d;
 };
 
+// Moves a date off the workshop's closed days (away from today), so sample
+// bookings never land on a day customers can't book.
+const openDay = (n: number) => {
+  const step = n < 0 ? -1 : 1;
+  let d = daysFromToday(n);
+  while (settings.closedWeekdays.includes(d.getUTCDay())) d = daysFromToday((n += step));
+  return d;
+};
+
 async function reset() {
   // Children first. Dev data only: refuses to run against production.
   await prisma.$transaction([
@@ -109,7 +118,7 @@ async function main() {
         year: 2018 + i,
         name: names[i],
         phone: `+2010000000${String(i).padStart(2, "0")}`,
-        date: daysFromToday(b.day),
+        date: openDay(b.day),
         slot: b.slot,
         status: b.status,
         services: { create: b.services.map((idx) => ({ serviceId: serviceRows[idx].id })) },
@@ -117,6 +126,59 @@ async function main() {
       },
     });
   }
+
+  // Two weeks of upcoming appointments so the dashboard chart has a realistic shape.
+  // A fixed-seed generator keeps every reseed identical.
+  let seed = 7;
+  const rand = (n: number) => {
+    seed = (seed * 48271) % 2147483647;
+    return seed % n;
+  };
+  const firstNames = ["Hassan", "Sara", "Mostafa", "Laila", "Tarek", "Dina", "Amr", "Rana", "Sherif", "Hala", "Ziad", "Nada"];
+  const lastNames = ["Ali", "Mahmoud", "Ibrahim", "Fouad", "Nabil", "Saleh", "Gamal", "Lotfy"];
+  let upcoming = 0;
+  for (let day = 1; day <= 14; day++) {
+    const date = daysFromToday(day);
+    if (settings.closedWeekdays.includes(date.getUTCDay())) continue;
+    const slots = [...settings.slots].sort(() => rand(3) - 1).slice(0, 2 + rand(6));
+    for (const slot of slots) {
+      const status: BookingStatus = day <= 3 && rand(3) > 0 ? "CONFIRMED" : "NEW";
+      const model = models[rand(models.length)];
+      await prisma.booking.create({
+        data: {
+          code: referenceCode("AR"),
+          modelId: modelIds.get(model.slug)!,
+          year: Math.max(model.yearFrom, 2015 + rand(10)),
+          name: `${firstNames[rand(firstNames.length)]} ${lastNames[rand(lastNames.length)]}`,
+          phone: `+20100${String(1000000 + upcoming).padStart(7, "0")}`,
+          date,
+          slot,
+          status,
+          services: { create: [{ serviceId: serviceRows[rand(serviceRows.length)].id }] },
+          events: { create: (status === "CONFIRMED" ? ["NEW", "CONFIRMED"] : ["NEW"]).map((s) => ({ status: s as BookingStatus })) },
+        },
+      });
+      upcoming++;
+    }
+  }
+
+  // A couple of inbox items so the admin screens aren't empty in demos.
+  const filters = await prisma.part.findMany({ where: { category: { slug: "filters" } }, take: 3 });
+  await prisma.partRequest.create({
+    data: {
+      code: referenceCode("PR"),
+      name: "Khaled Mansour",
+      phone: "+201000002001",
+      note: "Range Rover Sport 2019, VIN available on request.",
+      items: { create: filters.map((p, i) => ({ partId: p.id, quantity: i + 1 })) },
+    },
+  });
+  await prisma.contactMessage.createMany({
+    data: [
+      { name: "Yara Adel", phone: "+201000003001", subject: "Air suspension warning", body: "My Velar shows a suspension fault after parking overnight. Can you check it this week?" },
+      { name: "Hany Rizk", phone: "+201000003002", email: "hany@example.com", body: "Do you install aftermarket tow bars on the Defender 110?" },
+    ],
+  });
 
   const email = process.env.SEED_ADMIN_EMAIL;
   const password = process.env.SEED_ADMIN_PASSWORD;
@@ -129,7 +191,7 @@ async function main() {
   }
 
   console.log(
-    `Seeded ${models.length} models, ${services.length} services, ${parts.length} parts, ${sample.length} bookings${email ? ", admin user" : ""}.`,
+    `Seeded ${models.length} models, ${services.length} services, ${parts.length} parts, ${sample.length + upcoming} bookings${email ? ", admin user" : ""}.`,
   );
 }
 
