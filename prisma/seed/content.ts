@@ -2,12 +2,12 @@
 // Reviews and stats are PLACEHOLDERS: replace them with real ones before launch.
 
 export const reviews = [
-  { author: "Ahmed S.", carAr: "رينج روڤر سبورت ٢٠١٩", carEn: "Range Rover Sport 2019", rating: 5, bodyAr: "عرفوا سبب عطل التعليق الهوائي من أول فحص وغيّروا الحساس بس بدل المساعد كله. وفّروا عليّ كتير.", bodyEn: "They found the air suspension fault on the first check and replaced just the sensor, not the whole strut. Saved me a lot." },
-  { author: "Mona K.", carAr: "رينج روڤر إيڤوك ٢٠٢١", carEn: "Range Rover Evoque 2021", rating: 5, bodyAr: "الحجز كان سهل جدًا وكنت متابعة حالة العربية من الموقع لحد ما جهزت.", bodyEn: "Booking was easy and I followed my car's status on the website until it was ready." },
-  { author: "Karim H.", carAr: "لاند روڤر ديفندر ٢٠٢٢", carEn: "Land Rover Defender 2022", rating: 5, bodyAr: "صيانة دورية في معادها وبتقرير مفصّل بالصور. شغل محترم.", bodyEn: "Scheduled service done on time with a detailed photo report. Proper work." },
-  { author: "Youssef A.", carAr: "رينج روڤر ٢٠١٧", carEn: "Range Rover 2017", rating: 4, bodyAr: "القطعة ماكانتش موجودة فطلبوها ووصلت في ٣ أيام زي ما قالوا.", bodyEn: "The part wasn't in stock, so they ordered it and it arrived in 3 days as promised." },
-  { author: "Nour E.", carAr: "رينج روڤر ڤيلار ٢٠٢٠", carEn: "Range Rover Velar 2020", rating: 5, bodyAr: "أخيرًا مركز بيشرح لك المشكلة والتكلفة قبل ما يبدأ.", bodyEn: "Finally a workshop that explains the problem and the cost before starting." },
-  { author: "Omar F.", carAr: "لاند روڤر ديسكڤري ٢٠١٨", carEn: "Land Rover Discovery 2018", rating: 5, bodyAr: "عطل كهرباء متقطع لفّيت بيه على ٣ مراكز، اتحل هنا في يوم.", bodyEn: "An intermittent electrical fault three other shops missed was fixed here in a day." },
+  { author: "Ahmed S.", carAr: "رينج روڤر سبورت 2019", carEn: "Range Rover Sport 2019", rating: 5, bodyAr: "عرفوا سبب عطل التعليق الهوائي من أول فحص وغيّروا الحساس بس بدل المساعد كله. وفّروا عليّ كتير.", bodyEn: "They found the air suspension fault on the first check and replaced just the sensor, not the whole strut. Saved me a lot." },
+  { author: "Mona K.", carAr: "رينج روڤر إيڤوك 2021", carEn: "Range Rover Evoque 2021", rating: 5, bodyAr: "الحجز كان سهل جدًا وكنت متابعة حالة العربية من الموقع لحد ما جهزت.", bodyEn: "Booking was easy and I followed my car's status on the website until it was ready." },
+  { author: "Karim H.", carAr: "لاند روڤر ديفندر 2022", carEn: "Land Rover Defender 2022", rating: 5, bodyAr: "صيانة دورية في معادها وبتقرير مفصّل بالصور. شغل محترم.", bodyEn: "Scheduled service done on time with a detailed photo report. Proper work." },
+  { author: "Youssef A.", carAr: "رينج روڤر 2017", carEn: "Range Rover 2017", rating: 4, bodyAr: "القطعة ماكانتش موجودة فطلبوها ووصلت في 3 أيام زي ما قالوا.", bodyEn: "The part wasn't in stock, so they ordered it and it arrived in 3 days as promised." },
+  { author: "Nour E.", carAr: "رينج روڤر ڤيلار 2020", carEn: "Range Rover Velar 2020", rating: 5, bodyAr: "أخيرًا مركز بيشرح لك المشكلة والتكلفة قبل ما يبدأ.", bodyEn: "Finally a workshop that explains the problem and the cost before starting." },
+  { author: "Omar F.", carAr: "لاند روڤر ديسكڤري 2018", carEn: "Land Rover Discovery 2018", rating: 5, bodyAr: "عطل كهرباء متقطع لفّيت بيه على 3 مراكز، اتحل هنا في يوم.", bodyEn: "An intermittent electrical fault three other shops missed was fixed here in a day." },
 ];
 
 export const faqs = [
@@ -25,7 +25,7 @@ export const settings = {
   addressAr: "القاهرة، مصر",
   addressEn: "Cairo, Egypt",
   mapUrl: "https://www.google.com/maps?q=Cairo,Egypt&output=embed",
-  hoursAr: "السبت – الخميس: ٩ ص – ٧ م",
+  hoursAr: "السبت – الخميس: 9 ص – 7 م",
   hoursEn: "Sat – Thu: 9 AM – 7 PM",
   facebook: "https://facebook.com/",
   instagram: "https://instagram.com/",

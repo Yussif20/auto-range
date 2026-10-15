@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/brand/logo";
+import { RequestListButton } from "@/components/request-list/request-list-button";
 import { bookNav, mainNav } from "@/config/nav";
 import { Link, usePathname } from "@/i18n/navigation";
 
@@ -69,6 +70,7 @@ export function Header() {
             >
               {t("switchLocale")}
             </Link>
+            <RequestListButton />
             <Link
               href={bookNav.href}
               className="hidden rounded-md bg-brand px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-hover sm:inline-block"

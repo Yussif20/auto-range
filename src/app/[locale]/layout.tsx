@@ -8,6 +8,7 @@ import { locale as rootLocale } from "next/root-params";
 import { ContactDock } from "@/components/layout/contact-dock";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { RequestDrawer } from "@/components/request-list/request-drawer";
 import { routing } from "@/i18n/routing";
 import { getSettings } from "@/lib/data/settings";
 import "../globals.css";
@@ -60,6 +61,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
           <main className="flex-1">{children}</main>
           <Footer year={await currentYear()} settings={settings} />
           <ContactDock settings={settings} />
+          <RequestDrawer />
         </NextIntlClientProvider>
       </body>
     </html>

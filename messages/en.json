@@ -37,6 +37,103 @@
       "genuine": "Genuine parts, warrantied",
       "diagnostics": "Dealer-grade diagnostics",
       "tracking": "Track your car online"
+    },
+    "searchLabel": "Search for a part",
+    "searchPlaceholder": "Part name or OEM number",
+    "searchButton": "Search",
+    "stats": {
+      "label": "Our numbers",
+      "customers": "customers served",
+      "years": "years on Land Rover",
+      "parts": "parts available",
+      "rating": "customer rating"
+    },
+    "services": {
+      "eyebrow": "Services",
+      "title": "Everything your car needs, under one roof",
+      "lead": "From scheduled servicing to the trickiest electrical and air-suspension faults, by a team that works on Land Rover only.",
+      "all": "All services"
+    },
+    "why": {
+      "eyebrow": "Why Auto Range",
+      "title": "Real specialists, not just a claim",
+      "lead": "We work on Land Rover and Range Rover only, so we know their common faults and the right fix the first time.",
+      "points": {
+        "specialist": {
+          "title": "One-brand specialists",
+          "body": "Technicians trained on Land Rover systems and updates."
+        },
+        "tools": {
+          "title": "Dealer-grade equipment",
+          "body": "Module diagnostics and programming instead of guessing parts."
+        },
+        "transparent": {
+          "title": "Clear price up front",
+          "body": "A written report and a cost you approve before any repair."
+        },
+        "onTime": {
+          "title": "On-time handover",
+          "body": "We set a ready date and tell you right away if anything changes."
+        }
+      },
+      "processTitle": "Your car's journey with us",
+      "process": {
+        "book": {
+          "title": "Book online",
+          "body": "Pick the service and a time slot in under a minute."
+        },
+        "diagnose": {
+          "title": "Inspect and diagnose",
+          "body": "We check the car and send the report to your WhatsApp."
+        },
+        "approve": {
+          "title": "You approve first",
+          "body": "No repair starts until you approve the cost."
+        },
+        "track": {
+          "title": "Track and collect",
+          "body": "Follow your car's status with your booking code until it's ready."
+        }
+      }
+    },
+    "models": {
+      "eyebrow": "Models",
+      "title": "We look after the whole Land Rover family",
+      "lead": "Pick your model to see the parts that fit it.",
+      "present": "now",
+      "lines": {
+        "RANGE_ROVER": "Range Rover",
+        "DISCOVERY": "Discovery",
+        "DEFENDER": "Defender"
+      }
+    },
+    "parts": {
+      "eyebrow": "Parts",
+      "title": "Selected genuine parts",
+      "lead": "Add parts to your request list and send it on WhatsApp to confirm price and availability.",
+      "all": "Browse all parts"
+    },
+    "reviews": {
+      "eyebrow": "Reviews",
+      "title": "What owners say",
+      "stars": "{rating} out of 5 stars"
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Got a question?",
+      "lead": "Quick answers to what we're asked most. If yours isn't here, message us on WhatsApp."
+    },
+    "cta": {
+      "title": "Ready to book a service?",
+      "body": "Choose the service and a time that suits you, then follow your car's status online until you collect it."
+    },
+    "visit": {
+      "eyebrow": "Visit us",
+      "title": "Auto Range service center",
+      "address": "Address",
+      "hours": "Opening hours",
+      "phone": "Phone",
+      "mapTitle": "Auto Range on the map"
     }
   },
   "footer": {
@@ -47,5 +144,121 @@
     "rights": "© {year} Auto Range. All rights reserved.",
     "disclaimer": "Land Rover and Range Rover are trademarks of their respective owners. Auto Range is an independent service center.",
     "follow": "Follow us"
+  },
+  "services": {
+    "metaTitle": "Land Rover & Range Rover services",
+    "eyebrow": "Services",
+    "title": "Specialist servicing",
+    "lead": "Every job is done by a Land Rover specialist, with genuine parts and a written warranty.",
+    "from": "From",
+    "duration": "About {hours, plural, one {# hour} other {# hours}}",
+    "bookThis": "Book this service",
+    "breadcrumb": "Breadcrumb",
+    "whatWeDo": "What we do",
+    "promises": {
+      "genuine": "Genuine parts or approved equivalents of the same spec",
+      "report": "A written photo report before and after the repair",
+      "warranty": "A written warranty on parts and labour"
+    },
+    "steps": {
+      "inspect": {
+        "title": "Inspect",
+        "body": "We check the car and read the fault codes."
+      },
+      "quote": {
+        "title": "Quote",
+        "body": "We send you the diagnosis and the cost to approve."
+      },
+      "repair": {
+        "title": "Repair",
+        "body": "We do the work and road-test the car."
+      },
+      "handover": {
+        "title": "Handover",
+        "body": "You collect your car with a report of the work done."
+      }
+    },
+    "other": "Other services",
+    "notListedTitle": "Can't find the service you need?",
+    "notListedBody": "Book a general inspection and we'll find the problem and suggest the fix.",
+    "bookCta": "Book an inspection"
+  },
+  "parts": {
+    "metaTitle": "Genuine Land Rover & Range Rover parts",
+    "eyebrow": "Parts",
+    "title": "Genuine parts for every Land Rover",
+    "lead": "Search by name or OEM number, or filter by model, then send your list on WhatsApp to confirm price and availability.",
+    "count": "{count, plural, =0 {No results} one {# part} other {# parts}}",
+    "noResults": "No matching parts",
+    "noResultsHint": "Try another word or remove some filters, or ask us on WhatsApp and we'll source it.",
+    "clearFilters": "Clear filters",
+    "pagination": "Pages",
+    "prev": "Previous page",
+    "next": "Next page",
+    "askPrice": "Price on request",
+    "stock": {
+      "IN_STOCK": "In stock",
+      "LOW_STOCK": "Low stock",
+      "ON_ORDER": "On order",
+      "OUT_OF_STOCK": "Out of stock"
+    },
+    "filters": {
+      "search": "Search",
+      "searchPlaceholder": "Part name or OEM number",
+      "model": "Model",
+      "allModels": "All models",
+      "category": "Category",
+      "allCategories": "All categories",
+      "inStock": "In stock only"
+    },
+    "breadcrumb": "Breadcrumb",
+    "oem": "OEM number",
+    "askWhatsapp": "Hi Auto Range, I'd like to ask about: {name} (part {oem})",
+    "askButton": "Ask on WhatsApp",
+    "perks": {
+      "genuine": "Genuine part",
+      "fitting": "Fitting in-house",
+      "sourcing": "We source the rest"
+    },
+    "fits": "Fits",
+    "model": "Model",
+    "years": "Years",
+    "present": "now",
+    "vinHint": "Not sure it fits? Add your VIN to the request and we'll confirm before you buy.",
+    "related": "More from this category"
+  },
+  "requestList": {
+    "open": "Request list ({count})",
+    "add": "Add to request",
+    "added": "In your list",
+    "title": "Parts request list",
+    "close": "Close",
+    "empty": "Your list is empty. Add the parts you need, then send it to us.",
+    "browse": "Browse parts",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "remove": "Remove from list",
+    "hint": "We save your request and open WhatsApp with the message ready. We'll reply with price and availability shortly.",
+    "name": "Name (optional)",
+    "phone": "Mobile number",
+    "note": "Notes or VIN (optional)",
+    "send": "Send request on WhatsApp",
+    "sending": "Sending…",
+    "sentTitle": "Request saved",
+    "sentBody": "Finish sending it in WhatsApp. Keep the request code for follow-up.",
+    "openWhatsapp": "Open WhatsApp",
+    "errors": {
+      "invalidPhone": "Enter a valid mobile number.",
+      "empty": "Your list is empty.",
+      "invalid": "Check the details and try again.",
+      "server": "Something went wrong. Try again or message us on WhatsApp directly."
+    },
+    "message": {
+      "intro": "Hi Auto Range, I'd like to ask about these parts (request {code}):",
+      "item": "• {name} ({oem}) × {qty}",
+      "name": "Name: {name}",
+      "phone": "Mobile: {phone}",
+      "note": "Notes: {note}"
+    }
   }
 }
