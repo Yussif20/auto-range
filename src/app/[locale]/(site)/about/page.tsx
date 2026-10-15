@@ -1,14 +1,17 @@
 import { Award, Eye, Handshake, Leaf } from "lucide-react";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { LogoMark } from "@/components/brand/logo-mark";
+import Image from "next/image";
+import { getLocale, getTranslations } from "next-intl/server";
 import { CtaBand, ModelStrip, StatsBand } from "@/components/home/sections";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { getModels } from "@/lib/data/catalog";
 import { getSettings } from "@/lib/data/settings";
+import { localized } from "@/lib/i18n-field";
+import { localeAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("about");
-  return { title: t("metaTitle"), description: t("lead") };
+  return { title: t("metaTitle"), description: t("lead"), alternates: localeAlternates("/about", await getLocale()) };
 }
 
 const values = [
@@ -19,12 +22,20 @@ const values = [
 ] as const;
 
 export default async function AboutPage() {
-  const [t, settings] = await Promise.all([getTranslations("about"), getSettings()]);
+  const [t, settings, locale, models] = await Promise.all([
+    getTranslations("about"),
+    getSettings(),
+    getLocale(),
+    getModels(),
+  ]);
+  // The flagship Range Rover photo already leads the home page.
+  const gallery = models.filter((m) => m.image && m.slug !== "range-rover").slice(0, 4);
 
   return (
     <>
       <section className="hero-glow relative overflow-hidden border-b border-line">
-        <LogoMark mono className="pointer-events-none absolute -end-16 -top-10 hidden size-96 text-ink/[0.035] md:block" />
+        <Image src="/images/workshop.webp" alt="" fill priority sizes="100vw" className="object-cover opacity-35" />
+        <div className="absolute inset-0 bg-gradient-to-l from-bg via-bg/80 to-bg/20 ltr:bg-gradient-to-r" />
         <div className="container-x relative py-16 sm:py-24">
           <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
         </div>
@@ -51,6 +62,30 @@ export default async function AboutPage() {
           ))}
         </ul>
       </section>
+
+      {gallery.length > 0 && (
+        <section className="border-t border-line bg-surface">
+          <div className="container-x py-20 sm:py-28">
+            <SectionHeading eyebrow={t("gallery.eyebrow")} title={t("gallery.title")} />
+            <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+              {gallery.map((m) => (
+                <li key={m.id} className="group relative aspect-[16/9] overflow-hidden rounded-xl border border-line">
+                  <Image
+                    src={m.image!}
+                    alt={localized(m, "name", locale)}
+                    fill
+                    sizes="(min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg/90 to-transparent p-5 pt-16">
+                    <p className="font-semibold">{localized(m, "name", locale)}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       <div className="border-t border-line">
         <ModelStrip />

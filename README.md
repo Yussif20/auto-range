@@ -27,6 +27,21 @@ The seed wipes and refills the catalog, content, sample bookings, part requests 
 
 Security: the proxy only does a quick cookie check. Every admin page and server action verifies the signed session itself (`requireAdmin` / `adminPage` in `src/lib/auth/session.ts`).
 
+## Images
+
+`public/images/` holds placeholder photography generated for the demo (hero, services, models, workshop) as 1280–2400px WebP. Service and model rows point at these paths via the seed. Replace them with the workshop's real photos, through the admin (any https URL or `/images/...` path) or by swapping the files. `next/image` serves AVIF/WebP at the right size.
+
+## SEO
+
+- Every public page has a canonical URL and `hreflang` alternates (ar, en, x-default).
+- `sitemap.xml` covers all pages, services and parts in both languages. `robots.txt` blocks `/admin` and `/track`.
+- JSON-LD:
+  - `AutoRepair` business (from Settings) and `FAQPage` on the home page
+  - `Product` + `Offer` + `BreadcrumbList` on parts
+  - `Service` on services
+- Open Graph images: one site-wide, and one per part (name, OEM number, price).
+- Set `NEXT_PUBLIC_SITE_URL` in production, or canonical and sitemap URLs fall back to localhost.
+
 ## Scripts
 
 | Command | What it does |

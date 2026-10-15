@@ -1,7 +1,7 @@
 import { ArrowLeft, Cpu, Search, ShieldCheck, Timer } from "lucide-react";
 import Form from "next/form";
 import { getLocale, getTranslations } from "next-intl/server";
-import { LogoMark } from "@/components/brand/logo-mark";
+import Image from "next/image";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 
@@ -19,9 +19,19 @@ export async function Hero() {
   ];
 
   return (
-    <section className="hero-glow relative -mt-[4.5rem] overflow-hidden pt-[4.5rem]">
-      {/* Oversized mark as a quiet backdrop until real photography arrives. */}
-      <LogoMark mono className="pointer-events-none absolute -end-24 top-10 hidden size-[34rem] text-ink/[0.035] lg:block" />
+    <section className="relative -mt-[4.5rem] overflow-hidden bg-bg pt-[4.5rem]">
+      {/* The car sits right in the photo: mirrored in RTL so it's always opposite the headline. */}
+      <Image
+        src="/images/hero.webp"
+        alt=""
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+        className="object-cover object-[75%_center] opacity-90 max-sm:opacity-40 rtl:-scale-x-100"
+      />
+      <div className="absolute inset-0 bg-gradient-to-l from-bg via-bg/60 to-transparent ltr:bg-gradient-to-r" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
       <div className="container-x relative py-16 sm:py-24 lg:py-28">
         <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3.5 py-1.5 text-xs text-muted">
           <span className="size-1.5 animate-pulse rounded-full bg-brand" />

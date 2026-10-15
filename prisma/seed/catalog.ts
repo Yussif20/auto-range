@@ -200,3 +200,23 @@ const DESC: Record<string, { ar: string; en: string }> = {
 export function partDescription(cat: string) {
   return DESC[cat];
 }
+
+// Generated placeholder photography in public/images (replace with real photos later).
+export const serviceImages: Record<string, string> = {
+  "scheduled-maintenance": "/images/workshop.webp",
+  "computer-diagnostics": "/images/services/computer-diagnostics.webp",
+  "air-suspension": "/images/services/air-suspension.webp",
+  "engine-transmission": "/images/services/engine-transmission.webp",
+  electrical: "/images/services/electrical.webp",
+  brakes: "/images/services/brakes.webp",
+  "air-conditioning": "/images/services/air-conditioning.webp",
+  "body-detailing": "/images/services/body-detailing.webp",
+};
+
+export const modelImages: Record<string, string> = {
+  "range-rover": "/images/hero.webp",
+  "range-rover-sport": "/images/models/range-rover-sport.webp",
+  "range-rover-velar": "/images/models/range-rover-velar.webp",
+  discovery: "/images/models/discovery.webp",
+  defender: "/images/models/defender.webp",
+};

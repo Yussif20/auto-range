@@ -128,7 +128,7 @@ export function RequestDrawer() {
                     <Link
                       href={`/parts/${item.slug}`}
                       onClick={close}
-                      className="line-clamp-2 text-sm font-medium text-ink hover:text-brand-hover"
+                      className="line-clamp-2 text-sm font-medium text-ink hover:text-brand-text"
                     >
                       {locale === "ar" ? item.nameAr : item.nameEn}
                     </Link>
@@ -159,7 +159,7 @@ export function RequestDrawer() {
                     type="button"
                     onClick={() => requestList.remove(item.id)}
                     aria-label={t("remove")}
-                    className="grid size-8 place-items-center rounded-md text-muted hover:text-brand-hover"
+                    className="grid size-8 place-items-center rounded-md text-muted hover:text-brand-text"
                   >
                     <Trash2 className="size-4" />
                   </button>
@@ -194,7 +194,7 @@ export function RequestDrawer() {
               </label>
               <input name="website" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
               {status.kind === "error" && (
-                <p role="alert" className="text-sm text-brand-hover">
+                <p role="alert" className="text-sm text-brand-text">
                   {t(`errors.${status.error}`)}
                 </p>
               )}

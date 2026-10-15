@@ -86,7 +86,7 @@ export function ContactForm() {
       </label>
       <input name="website" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
       {error && (
-        <p role="alert" className="text-sm text-brand-hover sm:col-span-2">
+        <p role="alert" className="text-sm text-brand-text sm:col-span-2">
           {error.field && ["name", "phone", "email", "body"].includes(error.field)
             ? t(`errors.${error.field}`)
             : t(`errors.${error.error}`)}

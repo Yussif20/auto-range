@@ -13,7 +13,10 @@ import { getPart, getPartSlugs, getRelatedParts } from "@/lib/data/catalog";
 import { getSettings } from "@/lib/data/settings";
 import { formatPrice } from "@/lib/format";
 import { localized } from "@/lib/i18n-field";
+import { localeAlternates } from "@/lib/seo";
+import { breadcrumbSchema, productSchema } from "@/lib/structured-data";
 import { whatsappLink } from "@/lib/whatsapp";
+import { JsonLd } from "@/components/seo/json-ld";
 
 type Props = PageProps<"/[locale]/parts/[slug]">;
 
@@ -28,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${localized(part, "name", locale)} (${part.oemNumber})`,
     description: localized(part, "desc", locale),
+    alternates: localeAlternates(`/parts/${slug}`, locale),
   };
 }
 
@@ -56,6 +60,16 @@ async function PartDetail({ params }: { params: Props["params"] }) {
 
   return (
     <div className="container-x py-10 sm:py-14">
+      <JsonLd
+        data={[
+          productSchema(part, locale),
+          breadcrumbSchema([
+            { name: tNav("home"), path: `/${locale}` },
+            { name: tNav("parts"), path: `/${locale}/parts` },
+            { name, path: `/${locale}/parts/${part.slug}` },
+          ]),
+        ]}
+      />
       <nav aria-label={t("breadcrumb")} className="mb-8 text-sm text-muted">
         <ol className="flex flex-wrap items-center gap-2">
           <li>
@@ -151,7 +165,7 @@ async function PartDetail({ params }: { params: Props["params"] }) {
                 {part.compatibilities.map(({ model, yearFrom, yearTo }) => (
                   <tr key={model.id}>
                     <td className="px-4 py-2.5">
-                      <Link href={{ pathname: "/parts", query: { model: model.slug } }} className="hover:text-brand-hover">
+                      <Link href={{ pathname: "/parts", query: { model: model.slug } }} className="hover:text-brand-text">
                         {localized(model, "name", locale)}
                       </Link>
                     </td>

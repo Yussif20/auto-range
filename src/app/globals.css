@@ -5,6 +5,7 @@
   --surface: #131316;
   --surface-2: #1b1b20;
   --border: #26262c;
+  --red-400: #f04a5e;
   --red-500: #e0283f;
   --red-600: #c8102e;
   --red-800: #7a0a1c;
@@ -21,6 +22,8 @@
   --color-line: var(--border);
   --color-brand: var(--red-600);
   --color-brand-hover: var(--red-500);
+  /* Red for small text: 5.2:1 on surfaces (AA). --red-600 is for fills and large type. */
+  --color-brand-text: var(--red-400);
   --color-brand-deep: var(--red-800);
   --color-ink: var(--text);
   --color-muted: var(--muted);

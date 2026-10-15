@@ -39,7 +39,7 @@ export function LoginForm() {
         />
       </label>
       {state?.error && (
-        <p role="alert" className="text-sm text-brand-hover">
+        <p role="alert" className="text-sm text-brand-text">
           {t("invalid")}
         </p>
       )}

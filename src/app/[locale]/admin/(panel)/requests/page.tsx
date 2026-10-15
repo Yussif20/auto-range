@@ -73,7 +73,7 @@ export default async function RequestsPage({ searchParams }: PageProps<"/[locale
                 <ul className="mt-4 divide-y divide-line rounded-lg border border-line bg-bg text-sm">
                   {r.items.map((i) => (
                     <li key={i.partId} className="flex items-center justify-between gap-3 px-4 py-2.5">
-                      <Link href={`/admin/parts/${i.partId}`} className="min-w-0 truncate hover:text-brand-hover">
+                      <Link href={`/admin/parts/${i.partId}`} className="min-w-0 truncate hover:text-brand-text">
                         {localized(i.part, "name", locale)}{" "}
                         <span className="font-mono text-xs text-muted" dir="ltr">
                           {i.part.oemNumber}

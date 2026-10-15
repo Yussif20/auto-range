@@ -140,7 +140,7 @@ export function BookingForm({
                 <span
                   className={clsx(
                     "grid size-7 shrink-0 place-items-center rounded-full border text-xs font-bold",
-                    i < step ? "border-brand bg-brand text-white" : i === step ? "border-brand text-brand" : "border-line",
+                    i < step ? "border-brand bg-brand text-white" : i === step ? "border-brand text-brand-text" : "border-line",
                   )}
                 >
                   {i < step ? <Check className="size-3.5" /> : i + 1}

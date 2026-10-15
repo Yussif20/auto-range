@@ -17,8 +17,7 @@
     "contact": "Contact",
     "menu": "Menu",
     "close": "Close menu",
-    "switchLocale": "العربية",
-    "switchLocaleLabel": "Switch to Arabic"
+    "switchLocale": "العربية"
   },
   "actions": {
     "book": "Book service",
@@ -393,6 +392,10 @@
         "title": "A longer life for your car",
         "body": "Genuine parts and preventive care that protect your car's value."
       }
+    },
+    "gallery": {
+      "eyebrow": "The cars we know best",
+      "title": "From Defender to Velar"
     }
   },
   "contact": {
@@ -620,7 +623,7 @@
       "editTitle": "Edit",
       "choose": "Choose…",
       "slugHint": "Generated from the English name if left empty.",
-      "imagesHint": "One https URL per line. The first image is the main one.",
+      "imagesHint": "An https URL or a site path (e.g. /images/…), one per line. The first image is the main one.",
       "errors": {
         "required": "Required.",
         "invalid": "Invalid value.",
@@ -724,6 +727,20 @@
       },
       "changed": "Password changed.",
       "save": "Change password"
+    }
+  },
+  "errorPages": {
+    "notFound": {
+      "title": "Page not found",
+      "body": "The page may have moved or the link is wrong. Try the home page or browse our parts.",
+      "home": "Home",
+      "parts": "Browse parts"
+    },
+    "server": {
+      "title": "Something went wrong",
+      "body": "Sorry, we couldn't load this page. Try again, or message us on WhatsApp.",
+      "retry": "Try again",
+      "home": "Home"
     }
   }
 }

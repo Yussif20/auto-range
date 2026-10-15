@@ -26,7 +26,7 @@ export function PageHeader({
 const bookingTone: Record<BookingStatus, string> = {
   NEW: "bg-warning/15 text-warning",
   CONFIRMED: "bg-surface-2 text-ink",
-  IN_PROGRESS: "bg-brand/15 text-brand-hover",
+  IN_PROGRESS: "bg-brand/15 text-brand-text",
   READY: "bg-success/15 text-success",
   DONE: "bg-surface-2 text-muted",
   CANCELLED: "bg-surface-2 text-muted line-through",
