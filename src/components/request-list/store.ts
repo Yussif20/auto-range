@@ -7,7 +7,6 @@ export type RequestItem = {
   slug: string;
   nameAr: string;
   nameEn: string;
-  oemNumber: string;
   qty: number;
 };
 

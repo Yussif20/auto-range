@@ -132,9 +132,6 @@ export function RequestDrawer() {
                     >
                       {locale === "ar" ? item.nameAr : item.nameEn}
                     </Link>
-                    <p className="mt-1 font-mono text-xs text-muted" dir="ltr">
-                      {item.oemNumber}
-                    </p>
                   </div>
                   <div className="flex items-center rounded-md border border-line">
                     <button

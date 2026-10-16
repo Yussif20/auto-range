@@ -115,7 +115,7 @@ export default async function ResourceListPage({ params, searchParams }: Props) 
 }
 
 const columns: Record<ResourceKey, string[]> = {
-  parts: ["name", "oem", "category", "price", "stock"],
+  parts: ["name", "category", "price", "stock"],
   categories: ["name", "slug", "parts"],
   services: ["name", "price", "order", "visible"],
   models: ["name", "line", "years", "parts"],
@@ -140,7 +140,6 @@ function Cells({ row, locale, resource, hidden }: { row: ListRow; locale: string
             {row.featured && <Star className="ms-2 inline size-3.5 fill-brand text-brand" aria-label="featured" />}
             {!row.active && <span className="ms-2 text-xs text-muted">({hidden})</span>}
           </td>
-          <td className={`${tdClass} font-mono text-xs`} dir="ltr">{row.oemNumber}</td>
           <td className={tdClass}>{localized(row.category, "name", locale)}</td>
           <td className={`${tdClass} tabular-nums`}>{row.price != null ? formatPrice(row.price, locale) : "—"}</td>
           <td className={tdClass}><StockBadge stock={row.stock} /></td>

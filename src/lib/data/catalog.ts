@@ -44,7 +44,6 @@ const partCardSelect = {
   slug: true,
   nameAr: true,
   nameEn: true,
-  oemNumber: true,
   price: true,
   stock: true,
   images: true,
@@ -92,7 +91,6 @@ export async function searchParts(filters: PartFilters) {
       OR: [
         { nameAr: { contains: q, mode: "insensitive" } },
         { nameEn: { contains: q, mode: "insensitive" } },
-        { oemNumber: { contains: q.replace(/\s+/g, ""), mode: "insensitive" } },
       ],
     }),
   };

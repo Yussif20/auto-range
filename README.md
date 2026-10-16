@@ -39,7 +39,7 @@ Security: the proxy only does a quick cookie check. Every admin page and server 
   - `AutoRepair` business (from Settings) and `FAQPage` on the home page
   - `Product` + `Offer` + `BreadcrumbList` on parts
   - `Service` on services
-- Open Graph images: one site-wide, and one per part (name, OEM number, price).
+- Open Graph images: one site-wide, and one per part (name, price).
 - Set `NEXT_PUBLIC_SITE_URL` in production, or canonical and sitemap URLs fall back to localhost.
 
 ## Deploy (Vercel + Neon)
