@@ -33,7 +33,6 @@ export const resources = {
       text("nameAr", { required: true }),
       text("nameEn", { required: true }),
       { name: "slug", type: "slug", ltr: true, from: "nameEn" },
-      text("oemNumber", { required: true, ltr: true }),
       { name: "categoryId", type: "select", options: "categories", required: true },
       { name: "stock", type: "select", options: "stock", required: true },
       num("price", { min: 0 }),

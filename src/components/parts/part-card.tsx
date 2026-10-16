@@ -32,16 +32,11 @@ export function PartCard({ part }: { part: PartCardData }) {
             {name}
           </Link>
         </h3>
-        <p className="font-mono text-xs text-muted" dir="ltr">
-          {part.oemNumber}
-        </p>
         <div className="mt-auto flex items-center justify-between gap-3 pt-2">
           <p className="font-display font-bold text-ink">
             {part.price != null ? formatPrice(part.price, locale) : <span className="text-sm text-muted">{t("askPrice")}</span>}
           </p>
-          <AddToRequest
-            part={{ id: part.id, slug: part.slug, nameAr: part.nameAr, nameEn: part.nameEn, oemNumber: part.oemNumber }}
-          />
+          <AddToRequest part={{ id: part.id, slug: part.slug, nameAr: part.nameAr, nameEn: part.nameEn }} />
         </div>
       </div>
     </article>

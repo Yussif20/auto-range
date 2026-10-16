@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const [part, locale] = await Promise.all([getPart(slug), getLocale()]);
   if (!part) return {};
   return {
-    title: `${localized(part, "name", locale)} (${part.oemNumber})`,
+    title: localized(part, "name", locale),
     description: localized(part, "desc", locale),
     alternates: localeAlternates(`/parts/${slug}`, locale),
   };
@@ -56,7 +56,7 @@ async function PartDetail({ params }: { params: Props["params"] }) {
     getRelatedParts(part.categoryId, part.id),
   ]);
   const name = localized(part, "name", locale);
-  const askText = t("askWhatsapp", { name, oem: part.oemNumber });
+  const askText = t("askWhatsapp", { name });
 
   return (
     <div className="container-x py-10 sm:py-14">
@@ -108,22 +108,13 @@ async function PartDetail({ params }: { params: Props["params"] }) {
             <span className="text-xs text-muted">{part.brand}</span>
           </div>
           <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{name}</h1>
-          <p className="mt-3 text-sm text-muted">
-            {t("oem")}:{" "}
-            <span className="font-mono text-ink" dir="ltr">
-              {part.oemNumber}
-            </span>
-          </p>
           <p className="mt-6 font-display text-3xl font-bold">
             {part.price != null ? formatPrice(part.price, locale) : <span className="text-xl text-muted">{t("askPrice")}</span>}
           </p>
           <p className="mt-6 leading-8 text-muted">{localized(part, "desc", locale)}</p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <AddToRequest
-              size="lg"
-              part={{ id: part.id, slug: part.slug, nameAr: part.nameAr, nameEn: part.nameEn, oemNumber: part.oemNumber }}
-            />
+            <AddToRequest size="lg" part={{ id: part.id, slug: part.slug, nameAr: part.nameAr, nameEn: part.nameEn }} />
             <a
               href={whatsappLink(settings.whatsapp, askText)}
               target="_blank"

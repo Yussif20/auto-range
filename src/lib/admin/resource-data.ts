@@ -12,7 +12,7 @@ export async function listRows(resource: ResourceKey, q: string, page: number) {
 
   switch (resource) {
     case "parts": {
-      const where = q ? { OR: [contains("nameAr"), contains("nameEn"), contains("oemNumber")] } : {};
+      const where = q ? { OR: [contains("nameAr"), contains("nameEn")] } : {};
       const [total, rows] = await Promise.all([
         db.part.count({ where }),
         db.part.findMany({ where, include: { category: true }, orderBy: { updatedAt: "desc" }, skip, take }),

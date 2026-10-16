@@ -76,7 +76,7 @@ model Part {
   nameEn     String
   descAr     String
   descEn     String
-  oemNumber  String      @unique
+  oemNumber  String?     @unique // no longer used; kept so existing data isn't lost
   brand      String      @default("Genuine Land Rover")
   price      Int?
   stock      StockStatus @default(IN_STOCK)

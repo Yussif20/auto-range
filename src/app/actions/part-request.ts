@@ -39,7 +39,7 @@ export async function submitPartRequest(input: PartRequestInput): Promise<PartRe
   try {
     const parts = await db.part.findMany({
       where: { id: { in: items.map((i) => i.id) }, active: true },
-      select: { id: true, nameAr: true, nameEn: true, oemNumber: true },
+      select: { id: true, nameAr: true, nameEn: true },
     });
     if (parts.length === 0) return { ok: false, error: "empty" };
     const qtyById = new Map(items.map((i) => [i.id, i.qty]));
@@ -65,7 +65,6 @@ export async function submitPartRequest(input: PartRequestInput): Promise<PartRe
       ...parts.map((p) =>
         t("item", {
           name: locale === "ar" ? p.nameAr : p.nameEn,
-          oem: p.oemNumber,
           qty: qtyById.get(p.id)!,
         }),
       ),

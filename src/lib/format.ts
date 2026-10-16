@@ -1,4 +1,4 @@
-// Latin digits in both languages: phone numbers, OEM codes and prices then read
+// Latin digits in both languages: phone numbers, codes and prices then read
 // the same everywhere, and match what next-intl prints for ICU plurals.
 export function numberLocale(locale: string) {
   return locale === "ar" ? "ar-EG-u-nu-latn" : "en-EG";

@@ -82,7 +82,7 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions) {
     categoryIds.set(c.slug, row.id);
   }
 
-  for (const [i, p] of parts.entries()) {
+  for (const p of parts) {
     const desc = partDescription(p.cat);
     await prisma.part.create({
       data: {
@@ -91,7 +91,6 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions) {
         nameEn: p.nameEn,
         descAr: desc.ar,
         descEn: desc.en,
-        oemNumber: `LR${String(100000 + (((i + 1) * 7919) % 900000)).padStart(6, "0")}`,
         price: p.price,
         stock: p.stock ?? "IN_STOCK",
         featured: p.featured ?? false,

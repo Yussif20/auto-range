@@ -14,7 +14,7 @@ export default async function PartOgImage({ params }: { params: Promise<{ slug: 
   return new ImageResponse(
     (
       <OgFrame footer="Genuine parts · Order on WhatsApp · Fitting in-house">
-        <div style={{ fontSize: 26, color: "#A1A1AA", letterSpacing: 4 }}>{part?.oemNumber ?? ""}</div>
+        <div style={{ fontSize: 26, color: "#A1A1AA", letterSpacing: 4 }}>{(part?.brand ?? "Genuine Land Rover").toUpperCase()}</div>
         <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.1, marginTop: 12 }}>
           {part?.nameEn ?? "Genuine Land Rover parts"}
         </div>
