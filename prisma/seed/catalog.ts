@@ -217,6 +217,11 @@ export const modelImages: Record<string, string> = {
   "range-rover": "/images/hero.webp",
   "range-rover-sport": "/images/models/range-rover-sport.webp",
   "range-rover-velar": "/images/models/range-rover-velar.webp",
+  "range-rover-evoque": "/images/models/range-rover-evoque.webp",
   discovery: "/images/models/discovery.webp",
+  "discovery-sport": "/images/models/discovery-sport.webp",
   defender: "/images/models/defender.webp",
 };
+
+/** Demo only: one generated studio photo per part, named after the part's slug. Real parts get uploaded photos. */
+export const partImage = (slug: string) => `/images/parts/${slug}.webp`;
