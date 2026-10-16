@@ -2,7 +2,7 @@ import { type BookingStatus, type PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "node:crypto";
 import { referenceCode } from "../../src/lib/codes";
-import { categories, modelImages, models, partDescription, parts, serviceImages, services } from "./catalog";
+import { categories, modelImages, models, partDescription, partImage, parts, serviceImages, services } from "./catalog";
 import { faqs, reviews, settings as baseSettings } from "./content";
 
 export const DEMO_FLAG = "DEMO_DATABASE";
@@ -84,9 +84,10 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions) {
 
   for (const p of parts) {
     const desc = partDescription(p.cat);
+    const slug = slugify(p.nameEn);
     await prisma.part.create({
       data: {
-        slug: slugify(p.nameEn),
+        slug,
         nameAr: p.nameAr,
         nameEn: p.nameEn,
         descAr: desc.ar,
@@ -94,7 +95,7 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions) {
         price: p.price,
         stock: p.stock ?? "IN_STOCK",
         featured: p.featured ?? false,
-        images: [],
+        images: options.demo ? [partImage(slug)] : [],
         categoryId: categoryIds.get(p.cat)!,
         compatibilities: { create: p.models.map((slug) => ({ modelId: modelIds.get(slug)! })) },
       },
