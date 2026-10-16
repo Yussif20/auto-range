@@ -10,6 +10,7 @@ import { Link } from "@/i18n/navigation";
 import type { FormOptions } from "@/lib/admin/resource-data";
 import { type Field, ICON_KEYS, type ResourceKey, resources, type SaveState } from "@/lib/admin/resources";
 import { inputClass, labelClass } from "./form-styles";
+import { ImageField } from "./image-field";
 import { SubmitButton } from "./submit-button";
 
 const STOCK = ["IN_STOCK", "LOW_STOCK", "ON_ORDER", "OUT_OF_STOCK"];
@@ -42,7 +43,6 @@ export function ResourceForm({
     if (!echoed) return values[name];
     const field = (resources[resource].fields as Field[]).find((f) => f.name === name);
     if (field?.type === "checkbox") return echoed[name] === "on";
-    if (field?.type === "lines") return String(echoed[name] ?? "").split(/\r?\n/);
     return echoed[name];
   };
   const error = (name: string) => state?.errors?.[name];
@@ -101,15 +101,19 @@ export function ResourceForm({
             ))}
           </select>
         );
-      case "lines":
+      case "images":
+      case "image": {
+        const urls = (Array.isArray(value) ? value : [value]).filter((v): v is string => typeof v === "string" && v !== "");
         return (
-          <textarea
-            {...common}
-            rows={3}
-            placeholder="https://res.cloudinary.com/…"
-            defaultValue={Array.isArray(value) ? value.join("\n") : ""}
+          <ImageField
+            name={field.name}
+            folder={resource as "parts" | "services" | "models"}
+            multiple={field.type === "images"}
+            initial={urls}
+            invalid={Boolean(error(field.name))}
           />
         );
+      }
       case "checkbox":
         return null;
       case "models": {
@@ -140,7 +144,7 @@ export function ResourceForm({
           .filter((f) => f.type !== "checkbox")
           .map((field) => (
             <div key={field.name} className={clsx(field.wide && "sm:col-span-2")}>
-              {field.type === "models" ? (
+              {field.type === "models" || field.type === "images" || field.type === "image" ? (
                 <p className={labelClass}>{tField(field.name)}</p>
               ) : (
                 <label htmlFor={field.name} className={labelClass}>
@@ -150,7 +154,7 @@ export function ResourceForm({
               )}
               {renderInput(field)}
               {field.type === "slug" && <p className="mt-1 text-xs text-muted">{t("slugHint")}</p>}
-              {field.type === "lines" && <p className="mt-1 text-xs text-muted">{t("imagesHint")}</p>}
+              {field.type === "images" && <p className="mt-1 text-xs text-muted">{t("imagesHint")}</p>}
               {error(field.name) && (
                 <p id={`${field.name}-error`} className="mt-1 text-xs text-brand-text">
                   {t(`errors.${error(field.name)}`)}

@@ -29,7 +29,9 @@ Security: the proxy only does a quick cookie check. Every admin page and server 
 
 ## Images
 
-`public/images/` holds placeholder photography generated for the demo (hero, services, models, workshop) as 1280–2400px WebP. Service and model rows point at these paths via the seed. Replace them with the workshop's real photos, through the admin (any https URL or `/images/...` path) or by swapping the files. `next/image` serves AVIF/WebP at the right size.
+`public/images/` holds placeholder photography generated for the demo (hero, services, models, workshop) as 1280–2400px WebP. Service and model rows point at these paths via the seed. Replace them with the workshop's real photos by uploading in the admin (parts: up to 8 photos, the first is the main one; services and models: one each) or by swapping the files. Uploads are shrunk in the browser (1600px, WebP), stored in Vercel Blob (store `auto-range-images`, `BLOB_READ_WRITE_TOKEN`), and deleted from Blob when removed from a record or when the record is deleted. Uploading is refused on the public demo. `next/image` serves AVIF/WebP at the right size.
+
+Local runs: `vercel env pull` writes the production database into `.env.local`, and `next start` also reads `.env.production.local`. Keep only `BLOB_READ_WRITE_TOKEN` in `.env.local` and start a local build with `node --env-file=.env --env-file=.env.local node_modules/next/dist/bin/next start` so it uses the Docker database.
 
 ## SEO
 
