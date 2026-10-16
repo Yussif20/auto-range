@@ -1,7 +1,7 @@
 // Field definitions for the generic admin editor. Plain data only: this file is
 // shared by the server action (parsing) and the client form (rendering).
 
-export type FieldType = "text" | "textarea" | "number" | "checkbox" | "select" | "lines" | "slug" | "models";
+export type FieldType = "text" | "textarea" | "number" | "checkbox" | "select" | "images" | "image" | "slug" | "models";
 export type OptionSource = "categories" | "icons" | "stock" | "lines";
 
 export type Field = {
@@ -39,7 +39,7 @@ export const resources = {
       text("brand", { required: true, ltr: true }),
       area("descAr", { required: true }),
       area("descEn", { required: true }),
-      { name: "images", type: "lines", ltr: true, wide: true },
+      { name: "images", type: "images", wide: true },
       { name: "models", type: "models", wide: true },
       flag("featured"),
       flag("active"),
@@ -66,7 +66,7 @@ export const resources = {
       area("bodyEn", { required: true }),
       num("priceFrom", { min: 0 }),
       num("durationHr", { min: 1, max: 240 }),
-      text("image", { ltr: true }),
+      { name: "image", type: "image" },
       num("sortOrder", { min: 0 }),
       flag("active"),
     ],
@@ -79,7 +79,7 @@ export const resources = {
       { name: "line", type: "select", options: "lines", required: true },
       num("yearFrom", { required: true, min: 1970, max: 2100 }),
       num("yearTo", { min: 1970, max: 2100 }),
-      text("image", { ltr: true }),
+      { name: "image", type: "image" },
       num("sortOrder", { min: 0 }),
     ],
   },

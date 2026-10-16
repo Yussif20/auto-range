@@ -4,7 +4,9 @@ import { Prisma, StockStatus, VehicleLine } from "@prisma/client";
 import { updateTag } from "next/cache";
 import { getLocale } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
+import { deleteUnusedImages } from "@/lib/admin/blob-cleanup";
 import { type FormErrors, ICON_KEYS, isResource, type ResourceKey, resources, type SaveState } from "@/lib/admin/resources";
+import { MAX_PART_IMAGES } from "@/lib/admin/uploads";
 import { formValues } from "@/lib/admin/form-values";
 import { requireAdmin } from "@/lib/auth/session";
 import { CATALOG_TAG, CONTENT_TAG } from "@/lib/data/catalog";
@@ -13,6 +15,8 @@ import { isDemo } from "@/lib/demo";
 
 const slugify = (s: string) =>
   s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 80);
+
+const IMAGE_URL = /^(https:\/\/|\/)\S+$/;
 
 const SELECT_VALUES: Record<string, readonly string[]> = {
   icons: ICON_KEYS,
@@ -44,11 +48,13 @@ function parse(resource: ResourceKey, form: FormData) {
         data[field.name] = n;
         break;
       }
-      case "lines": {
-        const lines = raw.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-        // Absolute https URLs or files served from /public (e.g. /images/parts/x.webp).
-        if (lines.some((l) => !/^(https:\/\/|\/)\S+$/.test(l))) errors[field.name] = "invalid";
-        data[field.name] = lines;
+      case "images":
+      case "image": {
+        const urls = form.getAll(field.name).map((v) => String(v).trim()).filter(Boolean);
+        // Uploaded photos (https) or files served from /public (e.g. /images/models/x.webp).
+        const tooMany = urls.length > (field.type === "images" ? MAX_PART_IMAGES : 1);
+        if (tooMany || urls.some((u) => !IMAGE_URL.test(u))) errors[field.name] = "invalid";
+        data[field.name] = field.type === "images" ? urls : (urls[0] ?? null);
         break;
       }
       case "models":
@@ -79,6 +85,23 @@ function parse(resource: ResourceKey, form: FormData) {
   }
   return { data, errors };
 }
+
+/** The photos a record uses now, so the ones dropped by a save or delete can be removed from storage. */
+async function imagesOf(resource: ResourceKey, id: string): Promise<(string | null)[]> {
+  switch (resource) {
+    case "parts":
+      return (await db.part.findUnique({ where: { id }, select: { images: true } }))?.images ?? [];
+    case "services":
+      return [(await db.service.findUnique({ where: { id }, select: { image: true } }))?.image ?? null];
+    case "models":
+      return [(await db.vehicleModel.findUnique({ where: { id }, select: { image: true } }))?.image ?? null];
+    default:
+      return [];
+  }
+}
+
+const imagesIn = (data: Record<string, unknown>): (string | null)[] =>
+  Array.isArray(data.images) ? (data.images as string[]) : [(data.image as string | null | undefined) ?? null];
 
 const tagFor = (resource: ResourceKey) => (resource === "reviews" || resource === "faqs" ? CONTENT_TAG : CATALOG_TAG);
 
@@ -124,11 +147,13 @@ export async function saveResource(
   if (!isResource(resource)) return { error: "server" };
 
   const { data, errors } = parse(resource, form);
-  const echo = () => formValues(form, ["models"]);
+  const echo = () => formValues(form, ["models", "images", "image"]);
   if (Object.keys(errors).length) return { errors, values: echo() };
 
   try {
+    const before = id ? await imagesOf(resource, id) : [];
     await write(resource, id, data);
+    await deleteUnusedImages(before, imagesIn(data));
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
       const target = String((error.meta?.target as string[] | undefined)?.[0] ?? "slug");
@@ -140,6 +165,12 @@ export async function saveResource(
 
   updateTag(tagFor(resource));
   redirect({ href: { pathname: `/admin/${resource}`, query: { saved: "1" } }, locale: await getLocale() });
+}
+
+async function deleteWithImages(resource: ResourceKey, id: string, remove: () => Promise<unknown>) {
+  const before = await imagesOf(resource, id);
+  await remove();
+  await deleteUnusedImages(before);
 }
 
 export async function deleteResource(resource: string, id: string): Promise<SaveState> {
@@ -154,7 +185,7 @@ export async function deleteResource(resource: string, id: string): Promise<Save
       case "parts": {
         const used = await db.partRequestItem.count({ where: { partId: id } });
         if (used) await db.part.update({ where: { id }, data: { active: false } });
-        else await db.part.delete({ where: { id } });
+        else await deleteWithImages(resource, id, () => db.part.delete({ where: { id } }));
         break;
       }
       case "categories":
@@ -164,11 +195,11 @@ export async function deleteResource(resource: string, id: string): Promise<Save
       case "services":
         if (await db.bookingService.count({ where: { serviceId: id } })) {
           await db.service.update({ where: { id }, data: { active: false } });
-        } else await db.service.delete({ where: { id } });
+        } else await deleteWithImages(resource, id, () => db.service.delete({ where: { id } }));
         break;
       case "models":
         if (await db.booking.count({ where: { modelId: id } })) return { errors: { _: "inUse" } };
-        await db.vehicleModel.delete({ where: { id } });
+        await deleteWithImages(resource, id, () => db.vehicleModel.delete({ where: { id } }));
         break;
       case "reviews":
         await db.review.delete({ where: { id } });
